@@ -5,6 +5,33 @@
 //  Created by Ordoko on 10.02.2025.
 //
 
+
+
+
+/*
+ 
+ // Чтобы протестировать этот контроллер, вставь этот код вместо кода класса ViewController в файле "ViewController.swift"
+ 
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemYellow
+        let button = UIButton(frame: CGRect(origin: CGPoint(x: 100, y: 300), size: CGSize(width: 200, height: 50)))
+        button.setTitle("Game screen", for: .normal)
+        view.addSubview(button)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    }
+
+    @objc func buttonTapped() {
+        let gameVC = GameViewController()
+        gameVC.modalPresentationStyle = .fullScreen
+        self.present(gameVC, animated: true)
+    }
+
+}
+*/
+
 import UIKit
 import Lottie
 
