@@ -10,6 +10,7 @@ import UIKit
 final class CollectionCategoryCell: UICollectionViewCell {
     private let viewBg = UIView()
     private let imageView = UIImageView()
+    private var iconView = UIImageView()
     private let label = UILabel()
     private var isChecked = Bool()
     
@@ -38,7 +39,8 @@ final class CollectionCategoryCell: UICollectionViewCell {
     }
     
     private func updateBackgroundColor() {
-        viewBg.backgroundColor = isChecked ? UIColor.selectedCategory : UIColor.white
+        viewBg.backgroundColor = isChecked ? UIColor.selectedCategory : UIColor.clear
+        iconView.isHidden = isChecked ? false : true
     }
 }
 
@@ -48,6 +50,7 @@ private extension CollectionCategoryCell {
         contentView.addSubview(viewBg)
         viewBg.addSubview(imageView)
         viewBg.addSubview(label)
+        viewBg.addSubview(iconView)
 
         viewBg.layer.cornerRadius = 15
         viewBg.layer.borderWidth = 1
@@ -59,11 +62,19 @@ private extension CollectionCategoryCell {
         
         setupImage()
         setupLabel()
+        setupIcon()
     }
     
     func setupImage() {
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .black
+    }
+    
+    func setupIcon() {
+        iconView.image = UIImage(systemName: "checkmark.circle")
+        iconView.tintColor = .black
+        iconView.frame.size = CGSize(width: 24, height: 24)
+        iconView.isHidden = true
     }
     
     func setupLabel() {
@@ -75,13 +86,16 @@ private extension CollectionCategoryCell {
 
 private extension CollectionCategoryCell {
     func setupLayout() {
-        [viewBg, imageView, label].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [viewBg, imageView, label, iconView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
             viewBg.topAnchor.constraint(equalTo: contentView.topAnchor),
             viewBg.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             viewBg.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             viewBg.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            iconView.topAnchor.constraint(equalTo: viewBg.topAnchor, constant: 8),
+            iconView.trailingAnchor.constraint(equalTo: viewBg.trailingAnchor, constant: -8),
             
             label.bottomAnchor.constraint(equalTo: viewBg.bottomAnchor, constant: -12),
             label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),

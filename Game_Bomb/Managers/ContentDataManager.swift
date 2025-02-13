@@ -9,6 +9,7 @@ import UIKit
 
 
 protocol IContentDataManager {
+    func getModelData() -> [Model]
     func getSelectedCategory() -> [Model]
 }
 
@@ -25,6 +26,11 @@ final class ContentDataManager {
 
 
 extension ContentDataManager: IContentDataManager {
+    
+    func getModelData() -> [Model] {
+        model
+    }
+    
     func getSelectedCategory() -> [Model] {
         var selectedCategoryArray: [Model] = []
         
