@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		28CF5E582D5D40CF007CED75 /* Lottie-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 28CF5E572D5D40CF007CED75 /* Lottie-Dynamic */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		0B389F132D5A79E900D8E1A3 /* Game_Bomb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Game_Bomb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28CF5E582D5D40CF007CED75 /* Lottie-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = Game_Bomb;
 			packageProductDependencies = (
+				28CF5E572D5D40CF007CED75 /* Lottie-Dynamic */,
 			);
 			productName = Game_Bomb;
 			productReference = 0B389F132D5A79E900D8E1A3 /* Game_Bomb.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = 0B389F0A2D5A79E900D8E1A3;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				28CF5E562D5D40CF007CED75 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0B389F142D5A79E900D8E1A3 /* Products */;
 			projectDirPath = "";
@@ -343,6 +352,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		28CF5E562D5D40CF007CED75 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		28CF5E572D5D40CF007CED75 /* Lottie-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 28CF5E562D5D40CF007CED75 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = "Lottie-Dynamic";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0B389F0B2D5A79E900D8E1A3 /* Project object */;
 }
