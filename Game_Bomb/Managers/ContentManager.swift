@@ -8,13 +8,12 @@
 import UIKit
 
 protocol IContentManager {
-    func getModel() -> [Model]
+    static func fetchDataModel() -> [Model]
 }
 
-final class ContentManager {}
 
-extension ContentManager: IContentManager {
-    func getModel() -> [Model] {
+final class ContentManager: IContentManager {
+    static func fetchDataModel() -> [Model] {
         [
             Model(
                 type: "О разном",
