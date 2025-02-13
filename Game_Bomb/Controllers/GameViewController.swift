@@ -37,7 +37,7 @@ import Lottie
 import AVFoundation
 
 class GameViewController: UIViewController {
-    private let contentManager: IContentDataManager
+//    private let contentManager: IContentDataManager
 
     private var textLabel = UILabel()
     private var titleLabel = UILabel()
@@ -51,14 +51,14 @@ class GameViewController: UIViewController {
     private var musicPlayer: AVAudioPlayer!
     private var tickPlayer: AVAudioPlayer!
     
-    required init(manager: IContentDataManager) {
-        self.contentManager = manager
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    required init(manager: IContentDataManager) {
+//        self.contentManager = manager
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +66,11 @@ class GameViewController: UIViewController {
         startGameButton.addTarget(self, action: #selector(startGame), for: .touchUpInside)
         pauseButton.addTarget(self, action: #selector(pauseGame), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
-        questions = contentManager.getSelectedCategory().flatMap { $0.questions }
+        //mock
+        questions = [Questions(question: "Какой газ необходим для дыхания человеку?"),
+                     Questions(question: "Сколько планет в Солнечной системе?"),
+                     Questions(question: "Как называется столица Австралии?")]
+//        questions = contentManager.getSelectedCategory().flatMap { $0.questions }
     }
     
     @objc func startGame() {
@@ -212,8 +216,7 @@ class GameViewController: UIViewController {
     
     func makeBackgroundView() -> UIImageView {
         let image = UIImageView()
-        image.backgroundColor = UIColor(red: 0.961, green: 0.957, blue: 0.933, alpha: 1)
-        image.image = UIImage(named: "Topographic 3")
+        image.image = UIImage(named: "bg")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }
