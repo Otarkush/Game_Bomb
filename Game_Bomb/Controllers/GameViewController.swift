@@ -34,9 +34,11 @@ class ViewController: UIViewController {
 
 import UIKit
 import Lottie
+import AVFoundation
 
 class GameViewController: UIViewController {
-    
+    private let contentManager: IContentDataManager
+
     private var textLabel = UILabel()
     private var titleLabel = UILabel()
     private var startGameButton = UIButton()
@@ -45,20 +47,18 @@ class GameViewController: UIViewController {
     private var animationView = LottieAnimationView()
     private var backgroundImageView = UIImageView()
     private var gameStarted = false
+    private var questions: [Questions] = []
+    private var musicPlayer: AVAudioPlayer!
+    private var tickPlayer: AVAudioPlayer!
     
-    // add questions (temp)
-    private let questions = [
-        "Назови самую-самую-самую высокую гору на нашей планете Земля?",
-        "Как зовут президента США?",
-        "Столица Италии?"
-    ]
+    required init(manager: IContentDataManager) {
+        self.contentManager = manager
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    
-    //TODO: this
-    // make timer 30 sec
-    // make music sound
-    // make tick-tack sound
-    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,44 +66,75 @@ class GameViewController: UIViewController {
         startGameButton.addTarget(self, action: #selector(startGame), for: .touchUpInside)
         pauseButton.addTarget(self, action: #selector(pauseGame), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
+        questions = contentManager.getSelectedCategory().flatMap { $0.questions }
     }
     
     @objc func startGame() {
         gameStarted = true
-        // remove the start button
         startGameButton.removeFromSuperview()
-        // change the start textLabel
         setupQuestionLabel()
-        // show the question
         showQuestion()
-        // start the timer
-        startTimer()
-        // show the bomb with animation
         startBombAnimation()
+        startMusic()
+        startTickSound()
     }
+    
     
     @objc func pauseGame() {
         if animationView.isAnimationPlaying {
             animationView.pause()
+            tickPlayer.pause()
+            musicPlayer.pause()
         } else if gameStarted {
-            animationView.play()
+            startBombAnimation()
+            tickPlayer.play()
+            musicPlayer.play()
         }
     }
     
     @objc func backToMainVC() {
+        musicPlayer.stop()
+        tickPlayer.stop()
         dismiss(animated: true)
     }
     
+    func startMusic() {
+        let url = Bundle.main.url(forResource: "dance-in-the-sun", withExtension: "wav")
+        musicPlayer = try! AVAudioPlayer(contentsOf: url!)
+        musicPlayer.play()
+    }
+    
+    func startTickSound() {
+        let url2 = Bundle.main.url(forResource: "tikane-taymera-bombyi", withExtension: "wav")
+        tickPlayer = try! AVAudioPlayer(contentsOf: url2!)
+        tickPlayer.play()
+    }
+    
     func startBombAnimation() {
-        animationView.play()
+        animationView.play(fromFrame: 0, toFrame: 478) { finished in
+            if finished {
+                print("Animation segment completed!")
+                self.showNextScreen()
+                let url = Bundle.main.url(forResource: "igra-zakonchena-fonovyim-zvukom", withExtension: "wav")
+                self.musicPlayer = try! AVAudioPlayer(contentsOf: url!)
+                self.musicPlayer.play()
+            }
+        }
     }
     
-    func startTimer() {
-        //TODO: this
+    // TODO: отобразить готовый или сверстать на этом же
+    private func showNextScreen() {
+        let nextVC = UIViewController()
+        nextVC.view.backgroundColor = .red
+        let label = UILabel(frame: CGRect(origin: CGPoint(x: 30, y: 300), size: CGSize(width: 350, height: 50)))
+        label.text = "ВЫ САМОЕ СЛАБОЕ ЗВЕНО! ПРОЩАЙТЕ!"
+        nextVC.view.addSubview(label)
+        present(nextVC, animated: true)
     }
-    
+
     func showQuestion() {
-        textLabel.text = questions[Int.random(in: 0..<questions.count)]
+        let question = questions[Int.random(in: 0..<questions.count)]
+        textLabel.text = question.question
     }
     
     func setupQuestionLabel() {
@@ -247,7 +278,13 @@ class GameViewController: UIViewController {
         animationView.center = self.view.center // положила в центр
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .playOnce
-        animationView.animationSpeed = 1.0
+        
+        // Вычисляем нужную скорость
+        let originalDuration = animationView.animation?.duration ?? 1.0
+        let targetDuration: TimeInterval = 24.0
+        let animationSpeed = CGFloat(originalDuration / targetDuration)
+        print(animationSpeed)
+        animationView.animationSpeed = animationSpeed
         return animationView
     }
 }
