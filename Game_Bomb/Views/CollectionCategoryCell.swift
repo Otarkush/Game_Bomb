@@ -8,10 +8,10 @@
 import UIKit
 
 final class CollectionCategoryCell: UICollectionViewCell {
-    private let viewBg = UIView()
-    private let imageView = UIImageView()
+    private var viewBg = UIView()
+    private var imageView = UIImageView()
     private var iconView = UIImageView()
-    private let label = UILabel()
+    private var label = UILabel()
     private var isChecked = Bool()
     
     var action: (() -> ())?
@@ -20,6 +20,14 @@ final class CollectionCategoryCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
         setupLayout()
+    }
+    
+    init(imageView: UIImageView, iconView: UIImageView, label: String) {
+        super.init(frame: .zero)
+        self.imageView = imageView
+        self.iconView = iconView
+        self.label.text = label
+        
     }
     
     required init?(coder: NSCoder) {
@@ -39,7 +47,7 @@ final class CollectionCategoryCell: UICollectionViewCell {
     }
     
     private func updateBackgroundColor() {
-        viewBg.backgroundColor = isChecked ? UIColor.selectedCategory : UIColor.clear
+        viewBg.backgroundColor = isChecked ? UIColor.selectedCategory : UIColor(resource: .categoryCell)
         iconView.isHidden = isChecked ? false : true
     }
 }
@@ -71,7 +79,7 @@ private extension CollectionCategoryCell {
     }
     
     func setupIcon() {
-        iconView.image = UIImage(systemName: "checkmark.circle")
+        iconView.image = UIImage(systemName: "checkmark.circle.fill")
         iconView.tintColor = .black
         iconView.frame.size = CGSize(width: 24, height: 24)
         iconView.isHidden = true
