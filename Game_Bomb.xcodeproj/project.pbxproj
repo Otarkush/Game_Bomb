@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0BEE83FE2D5E831E004B6BAE /* Lottie-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 0BEE83FD2D5E831E004B6BAE /* Lottie-Dynamic */; };
+		FE3EF7FE2D5FC690001412EC /* Lottie-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FE3EF7FD2D5FC690001412EC /* Lottie-Dynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BEE83FE2D5E831E004B6BAE /* Lottie-Dynamic in Frameworks */,
+				FE3EF7FE2D5FC690001412EC /* Lottie-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 			);
 			name = Game_Bomb;
 			packageProductDependencies = (
-				0BEE83FD2D5E831E004B6BAE /* Lottie-Dynamic */,
+				FE3EF7FD2D5FC690001412EC /* Lottie-Dynamic */,
 			);
 			productName = Game_Bomb;
 			productReference = 0B389F132D5A79E900D8E1A3 /* Game_Bomb.app */;
@@ -114,7 +114,7 @@
 			mainGroup = 0B389F0A2D5A79E900D8E1A3;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				0BEE83FA2D5E831E004B6BAE /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				FE3EF7FA2D5FC690001412EC /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0B389F142D5A79E900D8E1A3 /* Products */;
@@ -354,7 +354,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0BEE83FA2D5E831E004B6BAE /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+		FE3EF7FA2D5FC690001412EC /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
 			requirement = {
@@ -365,9 +365,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0BEE83FD2D5E831E004B6BAE /* Lottie-Dynamic */ = {
+		FE3EF7FD2D5FC690001412EC /* Lottie-Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0BEE83FA2D5E831E004B6BAE /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			package = FE3EF7FA2D5FC690001412EC /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = "Lottie-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */

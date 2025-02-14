@@ -83,7 +83,6 @@ class MainVC: UIViewController {
         stack.distribution = .equalSpacing
         stack.spacing = 20
         stack.translatesAutoresizingMaskIntoConstraints = false
-//        stack.backgroundColor = .yellow
         return stack
     }()
     
@@ -206,12 +205,15 @@ class MainVC: UIViewController {
             let helpVC = HelpVC()
             
             // Устанавливаем preferredContentSize
-            helpVC.preferredContentSize = CGSize(width: UIScreen.main.bounds.width, height: 300)
+            helpVC.preferredContentSize = CGSize(width: view.frame.width, height: 650)
             
             // Настраиваем модальный стиль
             if let sheet = helpVC.sheetPresentationController {
                 // Указываем поддерживаемые детенты
-                sheet.detents = [.medium(), .large()]
+                let customDetent = UISheetPresentationController.Detent.custom(identifier: .medium) { context in
+                    return min(650, context.maximumDetentValue)
+                }
+                sheet.detents = [customDetent]
                 
                 // Разрешаем интерактивное изменение размера
                 sheet.prefersGrabberVisible = true
@@ -221,15 +223,6 @@ class MainVC: UIViewController {
             present(helpVC, animated: true, completion: nil)
         }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
