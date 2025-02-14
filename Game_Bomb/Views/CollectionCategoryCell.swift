@@ -14,7 +14,7 @@ final class CollectionCategoryCell: UICollectionViewCell {
     private var label = UILabel()
     private var isChecked = Bool()
     
-    var action: (() -> ())?
+    var action: ((UICollectionViewCell) -> ())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,7 +43,7 @@ final class CollectionCategoryCell: UICollectionViewCell {
     func cellTapped() {
         isChecked.toggle()
         updateBackgroundColor()
-        action?()
+        action?(self)
     }
     
     private func updateBackgroundColor() {

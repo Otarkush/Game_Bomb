@@ -10,7 +10,7 @@ import UIKit
 struct Model: Hashable {
     let type: String
     let image: String
-    let isMark: Bool
+    var isMark: Bool
     let questions: [Questions]
 }
 

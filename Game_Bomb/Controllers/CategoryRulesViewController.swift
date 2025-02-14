@@ -13,11 +13,30 @@ final class CategoryRulesViewController: UIViewController {
     private let titleLabel = UILabel()
     private let subTitle = UILabel()
     private let descriptionLabel = UILabel()
-    private let categoryView1 = CategoryView(label: "Helo", image: UIImageView(image: UIImage(resource: .image1)))
-    private let categoryView2 = CategoryView(label: "Helo", image: UIImageView(image: UIImage(resource: .image2)))
-    private let categoryView3 = CategoryView(label: "Helo", image: UIImageView(image: UIImage(resource: .image3)))
-    private let categoryView4 = CategoryView(label: "Helo", image: UIImageView(image: UIImage(resource: .image4)))
-  
+    private let categoryView1 = CategoryView(
+        label: "О разном",
+        image: UIImageView(image: UIImage(resource: .image1)),
+        iconView: UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
+    )
+    
+    private let categoryView2 = CategoryView(
+        label: "Спорт",
+        image: UIImageView(image: UIImage(resource: .image1)),
+        iconView: UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
+    )
+    
+    private let categoryView3 = CategoryView(
+        label: "Про жизнь",
+        image: UIImageView(image: UIImage(resource: .image3)),
+        iconView: UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
+    )
+    
+    private let categoryView4 = CategoryView(
+        label: "Знаменитости",
+        image: UIImageView(image: UIImage(resource: .image4)),
+        iconView: UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
+    )
+    
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +127,7 @@ private extension CategoryRulesViewController {
             
             categoryView4.topAnchor.constraint(equalTo: categoryView3.topAnchor),
             categoryView4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-           
+            
             
         ])
     }

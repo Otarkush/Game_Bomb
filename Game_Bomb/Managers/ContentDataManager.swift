@@ -10,7 +10,8 @@ import UIKit
 
 protocol IContentDataManager {
     func getModelData() -> [Model]
-    func getSelectedCategory() -> [Model]
+    func getSelectedQuestion() -> [Model]
+    func toggleSelected(_ item: Model)
 }
 
 final class ContentDataManager {
@@ -31,13 +32,22 @@ extension ContentDataManager: IContentDataManager {
         model
     }
     
-    func getSelectedCategory() -> [Model] {
-        var selectedCategoryArray: [Model] = []
-        
-        model.forEach { if $0.isMark{selectedCategoryArray.append($0)}}
-        
-        return selectedCategoryArray
+    func toggleSelected(_ item: Model) {
+        if let index = model.firstIndex(of: item) {
+            model[index].isMark.toggle()
+        }
     }
     
     
+    func getSelectedQuestion() -> [Model] {
+        var selectedCategoryArray: [Model] = []
+        
+        let modelArray = getModelData()
+        for model in modelArray {
+            if model.isMark {
+                selectedCategoryArray.append(model)
+            }
+        }
+        return selectedCategoryArray
+    }
 }
