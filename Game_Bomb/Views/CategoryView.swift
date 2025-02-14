@@ -20,11 +20,11 @@ final class CategoryView: UIView {
     init(
         label: String,
         image: UIImageView,
-        iconView: UIImage? = UIImage(systemName: "checkmark.circle.fill")
+        iconView: UIImageView
     ) {
         self.label.text = label
         self.image = image
-        self.iconView.image = iconView
+        self.iconView = iconView
         super.init(frame: .zero)
         
         widthAnchor.constraint(equalToConstant: 150).isActive = true
@@ -53,7 +53,6 @@ final class CategoryView: UIView {
 //MARK: - Settings
 private extension CategoryView {
     func setup() {
-      
         addSubviews()
         setupLabel()
         setupLayout()
@@ -74,6 +73,8 @@ private extension CategoryView {
     }
     
     func setupIcon() {
+        iconView.image = UIImage(systemName: "checkmark.circle.fill")?
+            .withRenderingMode(.alwaysTemplate)
         iconView.tintColor = .black
         iconView.frame.size = CGSize(width: 24, height: 24)
     }

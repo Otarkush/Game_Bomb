@@ -183,11 +183,21 @@ class MainVC: UIViewController {
     
     @objc func tappedStartGame() {
         print("StartGame button tapped")
+        let modelArray = ContentManager.fetchDataModel()
+        let itemModel = ContentDataManager(model: modelArray)
+        
+        let vc = GameViewController(manager: itemModel)
+        navigationController?.pushViewController(vc, animated: true)
 
     }
     
     @objc func tappedCategory() {
         print("Category button tapped")
+        let modelArray = ContentManager.fetchDataModel()
+        let itemModel = ContentDataManager(model: modelArray)
+        
+        let vc = CategoryViewController(contentDataManager: itemModel)
+        navigationController?.pushViewController(vc, animated: true)
 
     }
     

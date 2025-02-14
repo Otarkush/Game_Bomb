@@ -37,41 +37,57 @@ import Lottie
 import AVFoundation
 
 class GameViewController: UIViewController {
-//    private let contentManager: IContentDataManager
+    
+    private let contentManager: IContentDataManager!
 
     private var textLabel = UILabel()
-    private var titleLabel = UILabel()
     private var startGameButton = UIButton()
-    private var pauseButton = UIButton()
-    private var backButton = UIButton()
     private var animationView = LottieAnimationView()
     private var backgroundImageView = UIImageView()
     private var gameStarted = false
-    private var questions: [Questions] = []
+    private var models: [Model] = []
+    private let navigationBar = CustomNavigationBar()
     private var musicPlayer: AVAudioPlayer!
     private var tickPlayer: AVAudioPlayer!
     
-//    required init(manager: IContentDataManager) {
-//        self.contentManager = manager
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    
+    //MARK: - Init
+    required init(manager: IContentDataManager) {
+        self.contentManager = manager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         startGameButton.addTarget(self, action: #selector(startGame), for: .touchUpInside)
-        pauseButton.addTarget(self, action: #selector(pauseGame), for: .touchUpInside)
-        backButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
+        view.backgroundColor = .white
+        setupNavigationBar()
+       
         //mock
-        questions = [Questions(question: "Какой газ необходим для дыхания человеку?"),
-                     Questions(question: "Сколько планет в Солнечной системе?"),
-                     Questions(question: "Как называется столица Австралии?")]
+//        questions = [Questions(question: "Какой газ необходим для дыхания человеку?"),
+//                     Questions(question: "Сколько планет в Солнечной системе?"),
+//                     Questions(question: "Как называется столица Австралии?")]
+        
 //        questions = contentManager.getSelectedCategory().flatMap { $0.questions }
+        
+        models = contentManager.getSelectedQuestion()
+        print(models.count)
+        
     }
+    
+    func setupNavigationBar() {
+        navigationBar.titleOfLabel.text = "Игра"
+        navigationBar.iconRight.setImage(UIImage(resource:.vector1), for: .normal)
+        navigationBar.iconRight.addTarget(self, action: #selector(pauseGame), for: .touchUpInside)
+        addChild(navigationBar)
+        navigationBar.didMove(toParent: self)
+    }
+
     
     @objc func startGame() {
         gameStarted = true
@@ -94,12 +110,6 @@ class GameViewController: UIViewController {
             tickPlayer.play()
             musicPlayer.play()
         }
-    }
-    
-    @objc func backToMainVC() {
-        musicPlayer.stop()
-        tickPlayer.stop()
-        dismiss(animated: true)
     }
     
     func startMusic() {
@@ -137,8 +147,14 @@ class GameViewController: UIViewController {
     }
 
     func showQuestion() {
-        let question = questions[Int.random(in: 0..<questions.count)]
-        textLabel.text = question.question
+        let models = models
+        let model = models[Int.random(in: 0..<models.count)]
+        let questions = model.questions
+        for question in questions {
+            textLabel.text = question.question
+        }
+       // let question = models[Int.random(in: 0..<models.count)]
+       // textLabel.text = question.question
     }
     
     func setupQuestionLabel() {
@@ -149,6 +165,15 @@ class GameViewController: UIViewController {
         // setup Background
         backgroundImageView = makeBackgroundView()
         view.addSubview(backgroundImageView)
+        view.addSubview(navigationBar.view)
+        navigationBar.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            navigationBar.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 80),
+            navigationBar.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationBar.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            navigationBar.view.heightAnchor.constraint(equalToConstant: 60),
+        ])
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -157,35 +182,6 @@ class GameViewController: UIViewController {
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        // setup Title
-        titleLabel = makeTitleLabel()
-        view.addSubview(titleLabel)
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 23),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50)
-        ])
-        
-        // setup Pause button
-        pauseButton = makePauseButton()
-        view.addSubview(pauseButton)
-        NSLayoutConstraint.activate([
-            pauseButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -26),
-            pauseButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 58),
-            pauseButton.widthAnchor.constraint(equalToConstant: 27),
-            pauseButton.heightAnchor.constraint(equalToConstant: 27),
-        ])
-        
-        // setup Back button
-        backButton = makeBackButton()
-        view.addSubview(backButton)
-        NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 26),
-            backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 63),
-            backButton.widthAnchor.constraint(equalToConstant: 11),
-            backButton.heightAnchor.constraint(equalToConstant: 19),
-        ])
         
         // setup Text
         textLabel = makeTextLabel()
@@ -220,19 +216,7 @@ class GameViewController: UIViewController {
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }
-    
-    func makeTitleLabel() -> UILabel {
-        let textLabel = UILabel()
-        textLabel.frame = CGRect(x: 0, y: 0, width: 329, height: 96)
-        textLabel.textColor = UIColor(red: 0.118, green: 0.118, blue: 0.118, alpha: 1)
-        textLabel.font = UIFont(name: "SFProRounded-Black", size: 30)
-        textLabel.numberOfLines = 0
-        textLabel.lineBreakMode = .byWordWrapping
-        textLabel.textAlignment = .center
-        textLabel.text = "Игра"
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        return textLabel
-    }
+
     
     func makeTextLabel() -> UILabel {
         let textLabel = UILabel()
@@ -260,20 +244,7 @@ class GameViewController: UIViewController {
         startButton.translatesAutoresizingMaskIntoConstraints = false
         return startButton
     }
-    
-    func makePauseButton() -> UIButton {
-        let pauseButton = UIButton()
-        pauseButton.setImage(UIImage(named: "Vector 1"), for: .normal)
-        pauseButton.translatesAutoresizingMaskIntoConstraints = false
-        return pauseButton
-    }
-    
-    func makeBackButton() -> UIButton {
-        let backButton = UIButton()
-        backButton.setImage(UIImage(named: "Arrow"), for: .normal)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        return backButton
-    }
+
     
     func makeAnimationView() -> LottieAnimationView {
         let animationView = LottieAnimationView(name: "bomb")
