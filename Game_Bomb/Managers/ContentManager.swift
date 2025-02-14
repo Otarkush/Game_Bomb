@@ -101,7 +101,7 @@ final class ContentManager: IContentManager {
                 ]),
             Model(
                 type: "Знаменитости",
-                image: "Image4",
+                image: "Image5",
                 isMark: false,
                 questions: [
                     Questions(question: "Как зовут актера, сыгравшего Железного человека в киновселенной Marvel?"),
@@ -122,7 +122,7 @@ final class ContentManager: IContentManager {
                 ]),
             Model(
                 type: "Природа",
-                image: "Image5",
+                image: "Image6",
                 isMark: false,
                 questions: [
                     Questions(question: "Какое самое большое животное на Земле?"),

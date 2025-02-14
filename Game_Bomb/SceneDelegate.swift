@@ -18,9 +18,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
        
         let modelArray = ContentManager.fetchDataModel()
         let itemModel = ContentDataManager(model: modelArray)
-        
-        let vc = UINavigationController(rootViewController: CategoryViewController(contentDataManager: itemModel))
+        let navigationController: UINavigationController
+        navigationController = UINavigationController(rootViewController: MainVC())
+
+       // let vc = GameViewController(manager: itemModel)
+        let vc = navigationController
+       // let vc = UINavigationController(rootViewController: CategoryViewController(contentDataManager: itemModel))
         window?.rootViewController = vc
+        navigationController.navigationBar.isHidden = true
         window?.makeKeyAndVisible()
     }
 
