@@ -35,11 +35,8 @@ class HelpVC: UIViewController {
         label.heightAnchor.constraint(equalToConstant: 28).isActive = true
         label.clipsToBounds = true
         label.layer.cornerRadius = 5
-//        label.layer.borderWidth = 5
-//        label.layer.borderColor = UIColor.black.cgColor
-//        label.layer.shadowOffset = CGSize(width: 0, height: 2)
-//        label.layer.shadowOpacity = 1
-//        label.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.08).cgColor
+        
+
         return label
     }()
     
@@ -355,6 +352,6 @@ extension HelpVC {
 
 }
 
-//#Preview {
-//    HelpVC()
-//}
+#Preview {
+    HelpVC()
+}
