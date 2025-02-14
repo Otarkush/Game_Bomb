@@ -75,7 +75,7 @@ class GameViewController: UIViewController {
         
 //        questions = contentManager.getSelectedCategory().flatMap { $0.questions }
         
-        models = contentManager.getSelectedQuestion()
+       
         print(models.count)
         
     }
@@ -147,14 +147,14 @@ class GameViewController: UIViewController {
     }
 
     func showQuestion() {
-        let models = models
-        let model = models[Int.random(in: 0..<models.count)]
-        let questions = model.questions
-        for question in questions {
-            textLabel.text = question.question
+        let models = contentManager.getSelectedQuestion()
+        //let model = models[Int.random(in: 0..<models.count)]
+        for model in models {
+            let questions = model.questions
+            for question in questions {
+                textLabel.text = question.question
+            }
         }
-       // let question = models[Int.random(in: 0..<models.count)]
-       // textLabel.text = question.question
     }
     
     func setupQuestionLabel() {

@@ -41,7 +41,7 @@ final class CollectionCategoryCell: UICollectionViewCell {
     }
     
     func cellTapped() {
-        //isChecked.toggle()
+        isChecked.toggle()
         updateBackgroundColor()
         action?(self)
     }

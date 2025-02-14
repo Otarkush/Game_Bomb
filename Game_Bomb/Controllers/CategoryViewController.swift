@@ -186,7 +186,13 @@ extension CategoryViewController: UICollectionViewDataSource {
         
         let content = contentDataManager.getModelData()[indexPath.row]
         
-       
+//        cell.action = { myCell in
+//            if let index = collectionView.indexPath(for: myCell) {
+//                let item = self.contentDataManager.getModelData()[index.row]
+//                self.contentDataManager.toggleSelected(item)
+//            }
+//        }
+        
         cell.configure(model: content)
         
         return cell
@@ -198,15 +204,11 @@ extension CategoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionCategoryCell else { return }
         
-        cell.action = { myCell in
-            if let index = collectionView.indexPath(for: myCell) {
-                let item = self.contentDataManager.getModelData()[index.row]
-                self.contentDataManager.toggleSelected(item)
-            }
-        }
-        
+        let item = self.contentDataManager.getModelData()[indexPath.row]
+        self.contentDataManager.toggleSelected(item)
         
         cell.cellTapped()
+       // collectionView.reloadItems(at: [indexPath])
         
        
         // let questionVC = CategoryRulesViewController()//тут экран с вопросом заменить
