@@ -17,6 +17,7 @@ final class CategoryViewController: UIViewController {
     private var collectionView: UICollectionView!
     private let reuseIdentifier = "category"
     private let contentDataManager: IContentDataManager!
+    private let buttonTap = UIButton()
     
     
     //MARK: - Init
@@ -36,6 +37,7 @@ final class CategoryViewController: UIViewController {
         setupView()
         setupBackground()
         configureCollectionView()
+        setupButton()
     }
 }
 
@@ -63,11 +65,44 @@ private extension CategoryViewController {
         collectionView.delegate = self
         
         view.addSubview(collectionView)
+        view.addSubview(buttonTap)
+    }
+    
+    func showMyViewControllerInACustomizedSheet() {
+        let viewControllerToPresent = CategoryRulesViewController()
+        viewControllerToPresent.preferredContentSize = CGSize(width: view.frame.width, height: 650)
+
+        if let sheet = viewControllerToPresent.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom(identifier: .medium) { context in
+                return min(650, context.maximumDetentValue)
+            }
+
+            sheet.detents = [customDetent]
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersEdgeAttachedInCompactHeight = true
+            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+            sheet.prefersGrabberVisible = true
+        }
+        
+        present(viewControllerToPresent, animated: true, completion: nil)
+    }
+
+    
+    func setupButton() {
+        buttonTap.titleLabel?.text = "Tap"
+        buttonTap.tintColor = .black
+        buttonTap.backgroundColor = .green
+        buttonTap.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
+    }
+    
+    @objc private func tapButton() {
+        showMyViewControllerInACustomizedSheet()
     }
     
     func setupBackground() {
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImage.image = UIImage(resource: .bg)
+        backgroundImage.image = UIImage(resource: .bgCategory)
         backgroundImage.contentMode = .scaleAspectFill
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
@@ -123,12 +158,20 @@ private extension CategoryViewController {
     
     func configureCollectionView() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        buttonTap.translatesAutoresizingMaskIntoConstraints = false
+        
+       
         
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.topAnchor.constraint(equalTo: buttonTap.topAnchor, constant: 20),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            buttonTap.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            buttonTap.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonTap.widthAnchor.constraint(equalToConstant: 100),
+            buttonTap.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     
