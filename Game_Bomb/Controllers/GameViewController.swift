@@ -10,6 +10,12 @@ import UIKit
 import DotLottie
 import AVFoundation
 
+enum GameState {
+    case notStarted
+    case started
+    case paused
+}
+
 class GameViewController: UIViewController {
     
     private let contentManager: IContentDataManager!
@@ -21,17 +27,17 @@ class GameViewController: UIViewController {
     private var animationDotLottieView: DotLottieAnimationView!
     private var dotLottieView: DotLottieView!
     private var backgroundImageView = UIImageView()
-    private var gameStarted = false
-    private var models: [Model] = []
+    private var questions: [Questions] = []
     private let navigationBar = CustomNavigationBar()
-    private var musicPlayer: AVAudioPlayer!
-    private var tickPlayer: AVAudioPlayer!
-    private var timer: Timer!
+    private var musicPlayer: AVAudioPlayer?
+    private var tickPlayer: AVAudioPlayer?
+    private var timer: Timer?
     private var timerStartTime: Date?
-    private var remainingTime: TimeInterval = 20.0 // Длительность таймера (в секундах)
-    
+    private var remainingTime: TimeInterval = 20.0
+    private var state: GameState = .notStarted
     
     //MARK: - Init
+    
     required init(manager: IContentDataManager) {
         self.contentManager = manager
         super.init(nibName: nil, bundle: nil)
@@ -41,60 +47,73 @@ class GameViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        startGameButton.addTarget(self, action: #selector(startGame), for: .touchUpInside)
-        view.backgroundColor = .white
         setupNavigationBar()
-       
-        //mock
-//        questions = [Questions(question: "Какой газ необходим для дыхания человеку?"),
-//                     Questions(question: "Сколько планет в Солнечной системе?"),
-//                     Questions(question: "Как называется столица Австралии?")]
-        
-//        questions = contentManager.getSelectedCategory().flatMap { $0.questions }
-        
-       
-        print(models.count)
-        
+        questions = contentManager.getModelData().flatMap { $0.questions }
     }
     
-    func setupNavigationBar() {
-        navigationBar.titleOfLabel.text = "Игра"
-        navigationBar.iconRight.setImage(UIImage(resource:.vector1), for: .normal)
-        navigationBar.iconRight.addTarget(self, action: #selector(pauseGame), for: .touchUpInside)
-        addChild(navigationBar)
-        navigationBar.didMove(toParent: self)
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        if state == .notStarted {
+            textLabel.font = UIFont(name: "SFProRounded-Medium", size: 28)
+            textLabel.text = "Нажмите “Запустить”\nчтобы начать игру"
+           
+            // setup Animation
+            animationDotLottieView = makeAnimationView()
+            view.addSubview(animationDotLottieView)
+            
+            // setup Start button
+            startGameButton = makeStartButton()
+            view.addSubview(startGameButton)
+            
+            NSLayoutConstraint.activate([
+                startGameButton.widthAnchor.constraint(equalToConstant: 330),
+                startGameButton.heightAnchor.constraint(equalToConstant: 55),
+                startGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+                startGameButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -28)
+            ])
+            
+            startGameButton.addTarget(self, action: #selector(startGame), for: .touchUpInside)
+        }
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("didDisapear")
+    }
+    
+    //MARK: - Func
 
-    
     @objc func startGame() {
-        gameStarted = true
+        state = .started
         startGameButton.removeFromSuperview()
-        setupQuestionLabel()
         showQuestion()
-        startBombAnimation()
+        playBombAnimation()
+        startTimer()
         startMusic()
         startTickSound()
     }
     
     @objc func pauseGame() {
-        if animationDotLottieView.dotLottieViewModel.isPlaying() {
-            let _ = animationDotLottieView.dotLottieViewModel.pause()
+        if state == .started {
+            state = .paused
+            pauseBombAnimation()
             pauseTimer()
-            tickPlayer.pause()
-            musicPlayer.pause()
-        } else if gameStarted {
-            startBombAnimation()
+            tickPlayer?.pause()
+            musicPlayer?.pause()
+        } else if state == .paused {
+            state = .started
+            playBombAnimation()
             resumeTimer()
-            tickPlayer.play()
-            musicPlayer.play()
+            tickPlayer?.play()
+            musicPlayer?.play()
         }
     }
     
     func startTimer() {
-        // Запуск нового таймера
         timerStartTime = Date()
         timer = Timer.scheduledTimer(
             timeInterval: remainingTime,
@@ -122,59 +141,66 @@ class GameViewController: UIViewController {
         print("Animation completed!")
         self.showNextScreen()
         let url = Bundle.main.url(forResource: "igra-zakonchena-fonovyim-zvukom", withExtension: "wav")
-        self.musicPlayer = try! AVAudioPlayer(contentsOf: url!)
-        self.musicPlayer.play()
+        self.musicPlayer = try? AVAudioPlayer(contentsOf: url!)
+        self.musicPlayer?.play()
+        state = .notStarted
+        remainingTime = 20.0
+        self.animationDotLottieView.removeFromSuperview()
     }
     
     @objc func backToMainVC() {
-        musicPlayer.stop()
-        tickPlayer.stop()
+        musicPlayer?.stop()
+        tickPlayer?.stop()
+        timer?.invalidate()
         dismiss(animated: true)
     }
     
     func startMusic() {
         let url = Bundle.main.url(forResource: "dance-in-the-sun", withExtension: "wav")
         musicPlayer = try! AVAudioPlayer(contentsOf: url!)
-        musicPlayer.play()
+        musicPlayer?.play()
     }
+    
+    func pauseMusic() {
+        musicPlayer?.pause()
+    }
+    
+    func resumeMusic() {
+        musicPlayer?.play()
+    }
+
     
     func startTickSound() {
         let url2 = Bundle.main.url(forResource: "tikane-taymera-bombyi", withExtension: "wav")
-        tickPlayer = try! AVAudioPlayer(contentsOf: url2!)
-        tickPlayer.play()
+        tickPlayer = try? AVAudioPlayer(contentsOf: url2!)
+        tickPlayer?.play()
     }
     
-    func startBombAnimation() {
+    func resumeTickSound() {
+        tickPlayer?.play()
+    }
+    
+    func playBombAnimation() {
         let _ = animationDotLottieView.dotLottieViewModel.play()
-        startTimer()
     }
     
-    // TODO: отобразить готовый или сверстать на этом же
+    func pauseBombAnimation() {
+        let _ = animationDotLottieView.dotLottieViewModel.pause()
+    }
+    
     private func showNextScreen() {
-        let nextVC = UIViewController()
-        nextVC.view.backgroundColor = .red
-        let label = UILabel(frame: CGRect(origin: CGPoint(x: 30, y: 300), size: CGSize(width: 350, height: 50)))
-        label.text = "ВЫ САМОЕ СЛАБОЕ ЗВЕНО! ПРОЩАЙТЕ!"
-        nextVC.view.addSubview(label)
+        let nextVC = FinishGameVC()
+        nextVC.modalPresentationStyle = .fullScreen
         present(nextVC, animated: true)
     }
 
     func showQuestion() {
-        //let question = questions[Int.random(in: 0..<questions.count)]
-        //      textLabel.text = question.question
-        let models = contentManager.getSelectedQuestion()
-        //let model = models[Int.random(in: 0..<models.count)]
-        for model in models {
-            let questions = model.questions
-            for question in questions {
-                textLabel.text = question.question
-            }
-        }
+        textLabel.font = UIFont(name: "SFProRounded-Black", size: 28)
+        let question = questions[Int.random(in: 0..<questions.count)]
+        textLabel.text = question.question
     }
     
-    func setupQuestionLabel() {
-        textLabel.font = UIFont(name: "SFProRounded-Black", size: 28)
-    }
+    //MARK: Setup UI
     
     func setupUI() {
         // setup Background
@@ -197,7 +223,6 @@ class GameViewController: UIViewController {
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        
         // setup Text
         textLabel = makeTextLabel()
         view.addSubview(textLabel)
@@ -206,25 +231,21 @@ class GameViewController: UIViewController {
             textLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 23),
             textLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
             textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            textLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 113)
-        ])
-        
-        // setup Animation
-        animationDotLottieView = makeAnimationView()
-        view.addSubview(animationDotLottieView)
-        
-        // setup Start button
-        startGameButton = makeStartButton()
-        view.addSubview(startGameButton)
-        
-        NSLayoutConstraint.activate([
-            startGameButton.widthAnchor.constraint(equalToConstant: 330),
-            startGameButton.heightAnchor.constraint(equalToConstant: 55),
-            startGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            startGameButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -28)
+            textLabel.topAnchor.constraint(equalTo: navigationBar.titleOfLabel.bottomAnchor, constant: 23)
         ])
     }
     
+    func setupNavigationBar() {
+        navigationBar.titleOfLabel.text = "Игра"
+        navigationBar.titleOfLabel.textColor = UIColor(red: 0.118, green: 0.118, blue: 0.118, alpha: 1)
+        navigationBar.titleOfLabel.font = UIFont(name: "SFProRounded-Black", size: 30)
+        navigationBar.iconRight.setImage(UIImage(resource:.vector1), for: .normal)
+        navigationBar.iconRight.addTarget(self, action: #selector(pauseGame), for: .touchUpInside)
+        navigationBar.iconLeft.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
+        addChild(navigationBar)
+        navigationBar.didMove(toParent: self)
+    }
+
     func makeBackgroundView() -> UIImageView {
         let image = UIImageView()
         image.image = UIImage(named: "bg")
@@ -270,7 +291,7 @@ class GameViewController: UIViewController {
         animationDotLottieView.contentMode = .scaleAspectFit
         let animationView = DotLottieView(dotLottie: animation)
         self.dotLottieView = animationView
-        animationDotLottieView.dotLottieViewModel.setSpeed(speed: 0.4)
+        animationDotLottieView.dotLottieViewModel.setSpeed(speed: 0.40)
         return animationDotLottieView
     }
 }
