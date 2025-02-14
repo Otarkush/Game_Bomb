@@ -41,6 +41,11 @@ class MainVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
 //        button.backgroundColor = .gray
         button.backgroundColor = UIColor(red: 245/255, green: 244/255, blue: 238/255, alpha: 1.0)
+        
+        button.layer.shadowOffset = CGSize(width: 3, height: 3)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowRadius = 5
         return button
     }()
     
@@ -53,6 +58,10 @@ class MainVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
 //        button.backgroundColor = .gray
         button.backgroundColor = UIColor(red: 245/255, green: 244/255, blue: 238/255, alpha: 1.0)
+        button.layer.shadowOffset = CGSize(width: 3, height: 3)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowRadius = 5
         return button
     }()
     
@@ -226,6 +235,6 @@ class MainVC: UIViewController {
 
 }
 
-//#Preview {
-//    MainVC()
-//}
+#Preview {
+    MainVC()
+}
