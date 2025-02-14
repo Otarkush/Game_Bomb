@@ -33,8 +33,13 @@ class HelpVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 167).isActive = true
         label.heightAnchor.constraint(equalToConstant: 28).isActive = true
-        label.clipsToBounds = true
+//        label.clipsToBounds = true
         label.layer.cornerRadius = 5
+        
+        label.layer.shadowOffset = CGSize(width: 3, height: 3)
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowOpacity = 0.5
+        label.layer.shadowRadius = 5
         
 
         return label
@@ -139,6 +144,7 @@ class HelpVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 29).isActive = true
         label.heightAnchor.constraint(equalToConstant: 29).isActive = true
+    
         return label
     }()
     
