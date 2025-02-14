@@ -6,34 +6,8 @@
 //
 
 
-
-
-/*
- 
- // Чтобы протестировать этот контроллер, вставь этот код вместо кода класса ViewController в файле "ViewController.swift"
- 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemYellow
-        let button = UIButton(frame: CGRect(origin: CGPoint(x: 100, y: 300), size: CGSize(width: 200, height: 50)))
-        button.setTitle("Game screen", for: .normal)
-        view.addSubview(button)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-    }
-
-    @objc func buttonTapped() {
-        let gameVC = GameViewController()
-        gameVC.modalPresentationStyle = .fullScreen
-        self.present(gameVC, animated: true)
-    }
-
-}
-*/
-
 import UIKit
-import Lottie
+import DotLottie
 import AVFoundation
 
 class GameViewController: UIViewController {
@@ -44,12 +18,16 @@ class GameViewController: UIViewController {
     private var startGameButton = UIButton()
     private var pauseButton = UIButton()
     private var backButton = UIButton()
-    private var animationView = LottieAnimationView()
+    private var animationDotLottieView: DotLottieAnimationView!
+    private var dotLottieView: DotLottieView!
     private var backgroundImageView = UIImageView()
     private var gameStarted = false
     private var questions: [Questions] = []
     private var musicPlayer: AVAudioPlayer!
     private var tickPlayer: AVAudioPlayer!
+    private var timer: Timer!
+    private var timerStartTime: Date?
+    private var remainingTime: TimeInterval = 20.0 // Длительность таймера (в секундах)
     
 //    required init(manager: IContentDataManager) {
 //        self.contentManager = manager
@@ -83,17 +61,51 @@ class GameViewController: UIViewController {
         startTickSound()
     }
     
-    
     @objc func pauseGame() {
-        if animationView.isAnimationPlaying {
-            animationView.pause()
+        if animationDotLottieView.dotLottieViewModel.isPlaying() {
+            let _ = animationDotLottieView.dotLottieViewModel.pause()
+            pauseTimer()
             tickPlayer.pause()
             musicPlayer.pause()
         } else if gameStarted {
             startBombAnimation()
+            resumeTimer()
             tickPlayer.play()
             musicPlayer.play()
         }
+    }
+    
+    func startTimer() {
+        // Запуск нового таймера
+        timerStartTime = Date()
+        timer = Timer.scheduledTimer(
+            timeInterval: remainingTime,
+            target: self,
+            selector: #selector(completeAnimation),
+            userInfo: nil,
+            repeats: false
+        )
+    }
+    
+    func pauseTimer() {
+        if let startTime = timerStartTime {
+            remainingTime -= Date().timeIntervalSince(startTime)
+        }
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func resumeTimer() {
+        startTimer()
+    }
+    
+    @objc func completeAnimation() {
+        let _ = animationDotLottieView.dotLottieViewModel.stop()
+        print("Animation completed!")
+        self.showNextScreen()
+        let url = Bundle.main.url(forResource: "igra-zakonchena-fonovyim-zvukom", withExtension: "wav")
+        self.musicPlayer = try! AVAudioPlayer(contentsOf: url!)
+        self.musicPlayer.play()
     }
     
     @objc func backToMainVC() {
@@ -115,15 +127,8 @@ class GameViewController: UIViewController {
     }
     
     func startBombAnimation() {
-        animationView.play(fromFrame: 0, toFrame: 478) { finished in
-            if finished {
-                print("Animation segment completed!")
-                self.showNextScreen()
-                let url = Bundle.main.url(forResource: "igra-zakonchena-fonovyim-zvukom", withExtension: "wav")
-                self.musicPlayer = try! AVAudioPlayer(contentsOf: url!)
-                self.musicPlayer.play()
-            }
-        }
+        let _ = animationDotLottieView.dotLottieViewModel.play()
+        startTimer()
     }
     
     // TODO: отобразить готовый или сверстать на этом же
@@ -199,8 +204,8 @@ class GameViewController: UIViewController {
         ])
         
         // setup Animation
-        animationView = makeAnimationView()
-        self.view.addSubview(animationView)
+        animationDotLottieView = makeAnimationView()
+        view.addSubview(animationDotLottieView)
         
         // setup Start button
         startGameButton = makeStartButton()
@@ -275,19 +280,18 @@ class GameViewController: UIViewController {
         return backButton
     }
     
-    func makeAnimationView() -> LottieAnimationView {
-        let animationView = LottieAnimationView(name: "bomb")
-        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-        animationView.center = self.view.center // положила в центр
-        animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = .playOnce
-        
-        // Вычисляем нужную скорость
-        let originalDuration = animationView.animation?.duration ?? 1.0
-        let targetDuration: TimeInterval = 24.0
-        let animationSpeed = CGFloat(originalDuration / targetDuration)
-        print(animationSpeed)
-        animationView.animationSpeed = animationSpeed
-        return animationView
+    func makeAnimationView() -> DotLottieAnimationView {
+        let animation = DotLottieAnimation(
+            fileName: "bomb",
+            config: AnimationConfig(autoplay: false, loop: false, useFrameInterpolation: true)
+        )
+        let animationDotLottieView: DotLottieAnimationView = animation.view()
+        animationDotLottieView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        animationDotLottieView.center = view.center
+        animationDotLottieView.contentMode = .scaleAspectFit
+        let animationView = DotLottieView(dotLottie: animation)
+        self.dotLottieView = animationView
+        animationDotLottieView.dotLottieViewModel.setSpeed(speed: 0.4)
+        return animationDotLottieView
     }
 }
