@@ -23,7 +23,7 @@ final class SectionBackgroundDecorationView: UICollectionReusableView {
 private extension SectionBackgroundDecorationView {
     func configure() {
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImage.image = UIImage(resource: .bg)
+        backgroundImage.image = UIImage(resource: .bgCategory)
         backgroundImage.contentMode = .scaleAspectFit
         addSubview(backgroundImage)
         sendSubviewToBack(backgroundImage)
