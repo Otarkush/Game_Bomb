@@ -15,7 +15,7 @@ final class CollectionCategoryCell: UICollectionViewCell {
     private var label = UILabel()
     private var isChecked = Bool()
     
-    var action: ((UICollectionViewCell) -> ())?
+    //var action: ((UICollectionViewCell) -> ())?
     
     //MARK: - Init
     override init(frame: CGRect) {
@@ -45,7 +45,7 @@ final class CollectionCategoryCell: UICollectionViewCell {
     func cellTapped() {
         isChecked.toggle()
         updateBackgroundColor()
-        action?(self)
+        //action?(self)
     }
     
     private func updateBackgroundColor() {
@@ -62,6 +62,7 @@ private extension CollectionCategoryCell {
         viewBg.addSubview(label)
         viewBg.addSubview(iconView)
 
+        viewBg.backgroundColor = .categoryCell
         viewBg.layer.cornerRadius = 15
         viewBg.layer.borderWidth = 1
         viewBg.layer.borderColor = UIColor.black.cgColor

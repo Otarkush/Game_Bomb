@@ -8,6 +8,18 @@
 import UIKit
 
 final class FinishGameVC: UIViewController {
+    private let contentDataManager: IContentDataManager!
+    
+    //MARK: - Init
+    init(contentDataManager: IContentDataManager) {
+        self.contentDataManager = contentDataManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let navigationBar = CustomNavigationBar()
     private let labelBot = UILabel()
@@ -23,6 +35,7 @@ final class FinishGameVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigation()
         
         view.backgroundColor = UIColor(red: 245/255, green: 244/255, blue: 238/255, alpha: 1.0)
         
@@ -30,6 +43,7 @@ final class FinishGameVC: UIViewController {
         background.contentMode = .scaleAspectFill
         background.frame = view.bounds
         view.addSubview(background)
+
         
         navigationBar.titleOfLabel.text = "Конец игры"
         navigationBar.iconRight.isHidden = true
@@ -38,22 +52,12 @@ final class FinishGameVC: UIViewController {
         addChild(navigationBar)
         view.addSubview(navigationBar.view)
         navigationBar.didMove(toParent: self)
-     
         
         let imageBomb = UIImageView(image: UIImage(named: "image 9"))
         imageBomb.contentMode = .scaleAspectFit
         imageBomb.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageBomb)
-        
-//        let labelTop = UILabel()
-//        labelTop.text = "Конец игры"
-//        labelTop.textColor = .black
-//        labelTop.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
-//        labelTop.textAlignment = .center
-//        labelTop.numberOfLines = 0
-//        labelTop.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(labelTop)
-        
+
         labelBot.text = "В следующем раунде после каждого ответа хлопать в ладоши"
         labelBot.textColor = .black
         labelBot.font = UIFont.systemFont(ofSize: 28, weight: .medium)
@@ -108,11 +112,6 @@ final class FinishGameVC: UIViewController {
             imageBomb.topAnchor.constraint(equalTo: navigationBar.view.bottomAnchor, constant: 65),
             imageBomb.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -362),
             
-//            labelTop.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 95),
-//            labelTop.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -95),
-//            labelTop.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-//            labelTop.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -727),
-            
             labelBot.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22),
             labelBot.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             labelBot.topAnchor.constraint(equalTo: view.topAnchor, constant: 512),
@@ -125,6 +124,16 @@ final class FinishGameVC: UIViewController {
         ])
     }
     
+    func setupNavigation() {
+        
+        navigationBar.titleOfLabel.text = "Конец игры"
+        navigationBar.iconRight.isHidden = true
+        navigationBar.iconLeft.isHidden = true
+        addChild(navigationBar)
+        view.addSubview(navigationBar.view)
+        navigationBar.didMove(toParent: self)
+    }
+    
    
     @objc func nextTask() {
         labelBot.text = looserTasks[Int.random(in: 0..<looserTasks.count)]
@@ -132,7 +141,9 @@ final class FinishGameVC: UIViewController {
     
     @objc func newGame() {
         print("Button Next Game")
-        navigationController?.popToRootViewController(animated: true)
+        let models = contentDataManager.getSelectedModels()
+        let gameVC = GameViewController(models: models, contentDataManager: contentDataManager)
+        navigationController?.pushViewController(gameVC, animated: true)
     }
     
 }
