@@ -22,6 +22,16 @@ final class FinishGameVC: UIViewController {
     }
     
     private let navigationBar = CustomNavigationBar()
+    private let labelBot = UILabel()
+    
+    private let looserTasks = [
+        "В следующем раунде перед каждым ответом делать одно приседание",
+        "В следующем раунде перед каждым ответом подпрыгнуть",
+        "В следующем раунде перед каждым ответом сделать поворот вокруг себя",
+        "В следующем раунде перед каждым ответом дотронуться до пола руками",
+        "В следующем раунде перед каждым ответом сделать руками большой круг",
+        "В следующем раунде во время каждого ответа подпрыгнуть три раза"
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,13 +43,21 @@ final class FinishGameVC: UIViewController {
         background.contentMode = .scaleAspectFill
         background.frame = view.bounds
         view.addSubview(background)
+
+        
+        navigationBar.titleOfLabel.text = "Конец игры"
+        navigationBar.iconRight.isHidden = true
+        navigationBar.iconLeft.isHidden = true
+//        navigationBar.iconRight.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
+        addChild(navigationBar)
+        view.addSubview(navigationBar.view)
+        navigationBar.didMove(toParent: self)
         
         let imageBomb = UIImageView(image: UIImage(named: "image 9"))
         imageBomb.contentMode = .scaleAspectFit
         imageBomb.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageBomb)
- 
-        let labelBot = UILabel()
+
         labelBot.text = "В следующем раунде после каждого ответа хлопать в ладоши"
         labelBot.textColor = .black
         labelBot.font = UIFont.systemFont(ofSize: 28, weight: .medium)
@@ -91,18 +109,18 @@ final class FinishGameVC: UIViewController {
         NSLayoutConstraint.activate([
             imageBomb.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 69),
             imageBomb.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -57),
-            imageBomb.topAnchor.constraint(equalTo: navigationBar.view.bottomAnchor, constant: 100),
+            imageBomb.topAnchor.constraint(equalTo: navigationBar.view.bottomAnchor, constant: 65),
             imageBomb.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -362),
             
             labelBot.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22),
             labelBot.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            labelBot.topAnchor.constraint(equalTo: view.topAnchor, constant: 489),
-            labelBot.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -219),
+            labelBot.topAnchor.constraint(equalTo: view.topAnchor, constant: 512),
+            labelBot.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -190),
             
             buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            buttonsStackView.topAnchor.constraint(equalTo: labelBot.bottomAnchor, constant: 43)
+            buttonsStackView.topAnchor.constraint(equalTo: labelBot.bottomAnchor, constant: 20)
         ])
     }
     
@@ -118,7 +136,7 @@ final class FinishGameVC: UIViewController {
     
    
     @objc func nextTask() {
-        print("Первая кнопка нажата!")
+        labelBot.text = looserTasks[Int.random(in: 0..<looserTasks.count)]
     }
     
     @objc func newGame() {
