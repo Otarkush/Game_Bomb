@@ -24,7 +24,7 @@ class MainVC: UIViewController {
     
     let nameLabelFist: UILabel = {
         let label = UILabel()
-        label.text = "Игра для компании"
+        label.text = "ИГРА ДЛЯ КОМПАНИИ"
         label.textColor = .black
         label.textAlignment = .center
         label.font = UIFont(name: "SFProDisplay-Bold", size: 28)
@@ -119,7 +119,7 @@ class MainVC: UIViewController {
     
     let imageBackground: UIImageView = {
         let image = UIImageView()
-        image.backgroundColor = .yellow
+        image.backgroundColor = UIColor(red: 1, green: 0.979, blue: 0.367, alpha: 1)
         image.image = UIImage(named: "Topographic 3")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image

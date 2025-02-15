@@ -18,7 +18,7 @@ class HelpVC: UIViewController {
     let imageBackground: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = UIColor(red: 245/255, green: 244/255, blue: 238/255, alpha: 1.0)
-        image.image = UIImage(named: "Topographic 3")
+        image.image = UIImage(named: "HelpViewBackground")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -58,9 +58,9 @@ class HelpVC: UIViewController {
     let labeTextOne: UILabel = {
         let label = UILabel()
         label.text = "Все игроки становятся в круг"
-        label.textColor = .black
+        label.textColor = UIColor(red: 0.233, green: 0.226, blue: 0.226, alpha: 1)
         label.numberOfLines = 0
-        label.font = UIFont(name: "SFProRounded-Regular", size: 20)
+        label.font = UIFont(name: "SFProRounded-Medium", size: 20)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -69,9 +69,9 @@ class HelpVC: UIViewController {
     let labeTextTwo: UILabel = {
         let label = UILabel()
         label.text = "Первый игрок берет телефон и нажимает кнопку:"
-        label.textColor = .black
+        label.textColor = UIColor(red: 0.233, green: 0.226, blue: 0.226, alpha: 1)
         label.numberOfLines = 0
-        label.font = UIFont(name: "SFProRounded-Regular", size: 20)
+        label.font = UIFont(name: "SFProRounded-Medium", size: 20)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -80,9 +80,9 @@ class HelpVC: UIViewController {
     let labeTextThree: UILabel = {
         let label = UILabel()
         label.text = "На экране появляется вопрос “Назовите Фрукт”."
-        label.textColor = .black
+        label.textColor = UIColor(red: 0.233, green: 0.226, blue: 0.226, alpha: 1)
         label.numberOfLines = 0
-        label.font = UIFont(name: "SFProRounded-Regular", size: 20)
+        label.font = UIFont(name: "SFProRounded-Medium", size: 20)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -91,9 +91,9 @@ class HelpVC: UIViewController {
     let labeTextFour: UILabel = {
         let label = UILabel()
         label.text = "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игрок."
-        label.textColor = .black
+        label.textColor = UIColor(red: 0.233, green: 0.226, blue: 0.226, alpha: 1)
         label.numberOfLines = 0
-        label.font = UIFont(name: "SFProRounded-Regular", size: 20)
+        label.font = UIFont(name: "SFProRounded-Medium", size: 20)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -102,9 +102,9 @@ class HelpVC: UIViewController {
     let labeTextFive: UILabel = {
         let label = UILabel()
         label.text = "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба."
-        label.textColor = .black
+        label.textColor = UIColor(red: 0.233, green: 0.226, blue: 0.226, alpha: 1)
         label.numberOfLines = 0
-        label.font = UIFont(name: "SFProRounded-Regular", size: 20)
+        label.font = UIFont(name: "SFProRounded-Medium", size: 20)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -113,9 +113,9 @@ class HelpVC: UIViewController {
     let labeTextSix: UILabel = {
         let label = UILabel()
         label.text = "Проигравшим считается тот, в чьих руках взорвалась бомба."
-        label.textColor = .black
+        label.textColor = UIColor(red: 0.233, green: 0.226, blue: 0.226, alpha: 1)
         label.numberOfLines = 0
-        label.font = UIFont(name: "SFProRounded-Regular", size: 20)
+        label.font = UIFont(name: "SFProRounded-Medium", size: 20)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -124,9 +124,9 @@ class HelpVC: UIViewController {
     let labeTextSeven: UILabel = {
         let label = UILabel()
         label.text = "Если выбран режим игры “С Заданиями”, то проигравший выполняет задание."
-        label.textColor = .black
+        label.textColor = UIColor(red: 0.233, green: 0.226, blue: 0.226, alpha: 1)
         label.numberOfLines = 0
-        label.font = UIFont(name: "SFProRounded-Regular", size: 20)
+        label.font = UIFont(name: "SFProRounded-Medium", size: 20)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -135,11 +135,11 @@ class HelpVC: UIViewController {
     let labelNumber1: UILabel = {
         let label = UILabel()
         label.text = "1"
-        label.textColor = .black
-        label.backgroundColor = .yellow
+        label.textColor = UIColor(red: 0.235, green: 0.227, blue: 0.227, alpha: 1)
+        label.backgroundColor = UIColor(red: 1, green: 0.822, blue: 0.367, alpha: 1)
         label.clipsToBounds = true
         label.layer.cornerRadius = 29/2
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 16)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 29).isActive = true
@@ -151,11 +151,11 @@ class HelpVC: UIViewController {
     let labelNumber2: UILabel = {
         let label = UILabel()
         label.text = "2"
-        label.textColor = .black
-        label.backgroundColor = .yellow
+        label.textColor = UIColor(red: 0.235, green: 0.227, blue: 0.227, alpha: 1)
+        label.backgroundColor = UIColor(red: 1, green: 0.822, blue: 0.367, alpha: 1)
         label.clipsToBounds = true
         label.layer.cornerRadius = 29/2
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 16)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 29).isActive = true
@@ -166,11 +166,11 @@ class HelpVC: UIViewController {
     let labelNumber3: UILabel = {
         let label = UILabel()
         label.text = "3"
-        label.textColor = .black
-        label.backgroundColor = .yellow
+        label.textColor = UIColor(red: 0.235, green: 0.227, blue: 0.227, alpha: 1)
+        label.backgroundColor = UIColor(red: 1, green: 0.822, blue: 0.367, alpha: 1)
         label.clipsToBounds = true
         label.layer.cornerRadius = 29/2
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 16)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 29).isActive = true
@@ -181,11 +181,11 @@ class HelpVC: UIViewController {
     let labelNumber4: UILabel = {
         let label = UILabel()
         label.text = "4"
-        label.textColor = .black
-        label.backgroundColor = .yellow
+        label.textColor = UIColor(red: 0.235, green: 0.227, blue: 0.227, alpha: 1)
+        label.backgroundColor = UIColor(red: 1, green: 0.822, blue: 0.367, alpha: 1)
         label.clipsToBounds = true
         label.layer.cornerRadius = 29/2
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 16)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 29).isActive = true
@@ -196,11 +196,11 @@ class HelpVC: UIViewController {
     let labelNumber5: UILabel = {
         let label = UILabel()
         label.text = "5"
-        label.textColor = .black
-        label.backgroundColor = .yellow
+        label.textColor = UIColor(red: 0.235, green: 0.227, blue: 0.227, alpha: 1)
+        label.backgroundColor = UIColor(red: 1, green: 0.822, blue: 0.367, alpha: 1)
         label.clipsToBounds = true
         label.layer.cornerRadius = 29/2
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 16)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 29).isActive = true
@@ -211,11 +211,11 @@ class HelpVC: UIViewController {
     let labelNumber6: UILabel = {
         let label = UILabel()
         label.text = "6"
-        label.textColor = .black
-        label.backgroundColor = .yellow
+        label.textColor = UIColor(red: 0.235, green: 0.227, blue: 0.227, alpha: 1)
+        label.backgroundColor = UIColor(red: 1, green: 0.822, blue: 0.367, alpha: 1)
         label.clipsToBounds = true
         label.layer.cornerRadius = 29/2
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 16)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 29).isActive = true
@@ -226,11 +226,11 @@ class HelpVC: UIViewController {
     let labelNumber7: UILabel = {
         let label = UILabel()
         label.text = "7"
-        label.textColor = .black
-        label.backgroundColor = .yellow
+        label.textColor = UIColor(red: 0.235, green: 0.227, blue: 0.227, alpha: 1)
+        label.backgroundColor = UIColor(red: 1, green: 0.822, blue: 0.367, alpha: 1)
         label.clipsToBounds = true
         label.layer.cornerRadius = 29/2
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 16)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 29).isActive = true
