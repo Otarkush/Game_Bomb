@@ -137,8 +137,14 @@ class HelpVC: UIViewController {
         label.text = "1"
         label.textColor = UIColor(red: 0.235, green: 0.227, blue: 0.227, alpha: 1)
         label.backgroundColor = UIColor(red: 1, green: 0.822, blue: 0.367, alpha: 1)
-        label.clipsToBounds = true
+        //label.clipsToBounds = true
         label.layer.cornerRadius = 29/2
+        
+        label.layer.shadowOffset = CGSize(width: 3, height: 3)
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowOpacity = 0.5
+        label.layer.shadowRadius = 5
+        
         label.font = UIFont(name: "DelaGothicOne-Regular", size: 16)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false

@@ -194,15 +194,5 @@ extension CategoryViewController: UICollectionViewDelegate {
         let item = self.contentDataManager.getModelData()[indexPath.row]
         self.contentDataManager.toggleSelected(item)
         cell.cellTapped()
-     
-       
-        // let questionVC = CategoryRulesViewController()//тут экран с вопросом заменить
-        //
-        //        let modelData = contentManager.getModel()[indexPath.row]
-        //
-        //
-        //        questionVC.configure(text: modelData)
-        //
-        //        navigationController?.pushViewController(questionVC, animated: true)
     }
 }

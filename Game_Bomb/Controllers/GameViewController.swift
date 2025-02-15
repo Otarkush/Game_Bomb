@@ -26,10 +26,9 @@ class GameViewController: UIViewController {
     private var animationDotLottieView: DotLottieAnimationView!
     private var dotLottieView: DotLottieView!
     private var backgroundImageView = UIImageView()
-    private var gameStarted = false
     private var models: [Model]
     private let navigationBar = CustomNavigationBar()
-    private let contentDataManager: IContentDataManager!
+   // private let contentDataManager: IContentDataManager!
     private var musicPlayer: AVAudioPlayer?
     private var tickPlayer: AVAudioPlayer?
     private var timer: Timer?
@@ -39,9 +38,8 @@ class GameViewController: UIViewController {
     
     
     //MARK: - Init
-    required init(models: [Model], contentDataManager: IContentDataManager) {
+    required init(models: [Model]) {
         self.models = models
-        self.contentDataManager = contentDataManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -58,7 +56,6 @@ class GameViewController: UIViewController {
     
     override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
-        
         if state == .notStarted {
             textLabel.font = UIFont(name: "SFProRounded-Medium", size: 28)
             textLabel.text = "Нажмите “Запустить”\nчтобы начать игру"
@@ -66,7 +63,6 @@ class GameViewController: UIViewController {
             // setup Animation
             animationDotLottieView = makeAnimationView()
             view.addSubview(animationDotLottieView)
-            
             startGameButton.addTarget(self, action: #selector(startGame), for: .touchUpInside)
         }
        
@@ -145,8 +141,6 @@ class GameViewController: UIViewController {
         musicPlayer?.stop()
         tickPlayer?.stop()
         timer?.invalidate()
-        let vc = MainVC(contentDataManager: contentDataManager)
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     func startMusic() {
@@ -183,7 +177,7 @@ class GameViewController: UIViewController {
     }
     
     private func showNextScreen() {
-        let nextVC = FinishGameVC(contentDataManager: contentDataManager)
+        let nextVC = FinishGameVC()
         navigationController?.pushViewController(nextVC, animated: true)
     }
 
@@ -278,9 +272,12 @@ class GameViewController: UIViewController {
         startButton.setTitleColor(UIColor(red: 0.235, green: 0.227, blue: 0.227, alpha: 1), for: .normal)
         startButton.titleLabel?.font = UIFont(name: "SFProDisplay-Bold", size: 20)
         startButton.backgroundColor = UIColor(red: 1, green: 0.822, blue: 0.367, alpha: 1)
-        startButton.layer.shadowRadius = 5
-        startButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        startButton.layer.opacity = 1
+        startButton.layer.shadowOffset = CGSize(width: 3, height: 3)
+        startButton.layer.shadowColor = UIColor.black.cgColor
+        startButton.layer.shadowOpacity = 0.4
+        startButton.layer.shadowRadius = 4
+        
+        //startButton.layer.opacity = 1
         startButton.layer.cornerRadius = 10
         startButton.translatesAutoresizingMaskIntoConstraints = false
         return startButton

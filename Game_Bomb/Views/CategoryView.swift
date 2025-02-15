@@ -31,14 +31,14 @@ final class CategoryView: UIView {
         heightAnchor.constraint(equalToConstant: 150).isActive = true
         
         backgroundColor = UIColor(resource: .categoryCell)
-        layer.cornerRadius = 12
+        layer.cornerRadius = 20
         layer.borderWidth = 1
         layer.borderColor = UIColor.black.cgColor
         
         self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 0.1
-        self.layer.shadowOffset = CGSize(width: 2, height: 2)
-        self.layer.shadowRadius = 3
+        self.layer.shadowOpacity = 0.4
+        self.layer.shadowOffset = CGSize(width: 3, height: 3)
+        self.layer.shadowRadius = 4
         
         setup()
     }
@@ -56,6 +56,8 @@ private extension CategoryView {
         addSubviews()
         setupLabel()
         setupLayout()
+        setupIcon()
+        setupImage()
     }
     
     func addSubviews() {
@@ -65,7 +67,7 @@ private extension CategoryView {
     }
     
     func setupLabel() {
-        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont(name: "SFProRounded-Medium", size: 16)
     }
     
     func setupImage() {
@@ -73,8 +75,7 @@ private extension CategoryView {
     }
     
     func setupIcon() {
-        iconView.image = UIImage(systemName: "checkmark.circle.fill")?
-            .withRenderingMode(.alwaysTemplate)
+        iconView.image = UIImage(systemName: "checkmark.circle.fill")
         iconView.tintColor = .black
         iconView.frame.size = CGSize(width: 24, height: 24)
     }
@@ -86,7 +87,6 @@ private extension CategoryView {
         [label, image, iconView].forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false
         }
-        
         
         NSLayoutConstraint.activate([
             label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),

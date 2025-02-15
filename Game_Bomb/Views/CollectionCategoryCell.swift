@@ -8,6 +8,8 @@
 import UIKit
 
 final class CollectionCategoryCell: UICollectionViewCell {
+   
+    
     //MARK: - Private property
     private var viewBg = UIView()
     private var imageView = UIImageView()
@@ -15,7 +17,6 @@ final class CollectionCategoryCell: UICollectionViewCell {
     private var label = UILabel()
     private var isChecked = Bool()
     
-    //var action: ((UICollectionViewCell) -> ())?
     
     //MARK: - Init
     override init(frame: CGRect) {
@@ -40,16 +41,20 @@ final class CollectionCategoryCell: UICollectionViewCell {
         imageView.image = UIImage(named: model.image)
         label.text = model.type
         isChecked = model.isMark
+        updateBackgroundColor()
     }
     
     func cellTapped() {
         isChecked.toggle()
         updateBackgroundColor()
-        //action?(self)
     }
     
     private func updateBackgroundColor() {
         viewBg.backgroundColor = isChecked ? UIColor.selectedCategory : UIColor(resource: .categoryCell)
+        viewBg.layer.shadowColor = isChecked ? .none : UIColor.black.cgColor
+        viewBg.layer.shadowOpacity = isChecked ? .zero : 0.4
+        viewBg.layer.shadowOffset = isChecked ? .zero : CGSize(width: 3, height: 3)
+        viewBg.layer.shadowRadius = isChecked ? 0 : 4
         iconView.isHidden = isChecked ? false : true
     }
 }
@@ -63,13 +68,9 @@ private extension CollectionCategoryCell {
         viewBg.addSubview(iconView)
 
         viewBg.backgroundColor = .categoryCell
-        viewBg.layer.cornerRadius = 15
+        viewBg.layer.cornerRadius = 20
         viewBg.layer.borderWidth = 1
         viewBg.layer.borderColor = UIColor.black.cgColor
-        viewBg.layer.shadowColor = UIColor.black.cgColor
-        viewBg.layer.shadowOpacity = 0.1
-        viewBg.layer.shadowOffset = CGSize(width: 3, height: 3)
-        viewBg.layer.shadowRadius = 3
         
         setupImage()
         setupLabel()
@@ -89,7 +90,7 @@ private extension CollectionCategoryCell {
     }
     
     func setupLabel() {
-        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.font = UIFont(name: "SFProRounded-Medium", size: 14)
         label.textColor = .black
     }
 }

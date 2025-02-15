@@ -118,6 +118,7 @@ final class ContentManager: IContentManager {
             Model(
                 type: "Природа",
                 image: "Image6",
+                isMark: true,
                 questions: [
                     Questions(question: "Какое самое большое животное на Земле?"),
                     Questions(question: "Какой газ растения выделяют в процессе фотосинтеза?"),

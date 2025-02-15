@@ -30,6 +30,10 @@ extension ContentDataManager: IContentDataManager {
     
     func getModelData() -> [Model] {
         model
+        
+//        var models = ContentManager.fetchDataModel()
+//        model = models
+//        return models
     }
     
     func toggleSelected(_ item: Model) {
