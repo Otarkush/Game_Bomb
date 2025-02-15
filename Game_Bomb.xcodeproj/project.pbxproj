@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FE3EF7FE2D5FC690001412EC /* Lottie-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FE3EF7FD2D5FC690001412EC /* Lottie-Dynamic */; };
+		2875CDC62D5F42EC0058A72A /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2875CDC52D5F42EC0058A72A /* DotLottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE3EF7FE2D5FC690001412EC /* Lottie-Dynamic in Frameworks */,
+				2875CDC62D5F42EC0058A72A /* DotLottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				0B389F152D5A79E900D8E1A3 /* Game_Bomb */,
+				2875CDBA2D5F3BCD0058A72A /* Frameworks */,
 				0B389F142D5A79E900D8E1A3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,6 +62,13 @@
 				0B389F132D5A79E900D8E1A3 /* Game_Bomb.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		2875CDBA2D5F3BCD0058A72A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,7 +91,7 @@
 			);
 			name = Game_Bomb;
 			packageProductDependencies = (
-				FE3EF7FD2D5FC690001412EC /* Lottie-Dynamic */,
+				2875CDC52D5F42EC0058A72A /* DotLottie */,
 			);
 			productName = Game_Bomb;
 			productReference = 0B389F132D5A79E900D8E1A3 /* Game_Bomb.app */;
@@ -114,7 +122,7 @@
 			mainGroup = 0B389F0A2D5A79E900D8E1A3;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				FE3EF7FA2D5FC690001412EC /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				2875CDC42D5F42EC0058A72A /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0B389F142D5A79E900D8E1A3 /* Products */;
@@ -161,7 +169,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -193,7 +201,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -354,21 +362,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FE3EF7FA2D5FC690001412EC /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+		2875CDC42D5F42EC0058A72A /* XCRemoteSwiftPackageReference "dotlottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			repositoryURL = "https://github.com/LottieFiles/dotlottie-ios";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.5.1;
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FE3EF7FD2D5FC690001412EC /* Lottie-Dynamic */ = {
+		2875CDC52D5F42EC0058A72A /* DotLottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FE3EF7FA2D5FC690001412EC /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = "Lottie-Dynamic";
+			package = 2875CDC42D5F42EC0058A72A /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
+			productName = DotLottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

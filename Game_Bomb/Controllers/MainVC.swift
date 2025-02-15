@@ -234,7 +234,3 @@ class MainVC: UIViewController {
 
 
 }
-
-#Preview {
-    MainVC()
-}

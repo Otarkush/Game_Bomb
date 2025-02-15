@@ -99,6 +99,6 @@ class FinishGameVC: UIViewController {
     }
     
     @objc func secondButtonTapped() {
-        print("Вторая кнопка нажата!")
+        self.dismiss(animated: true)
     }
 }
