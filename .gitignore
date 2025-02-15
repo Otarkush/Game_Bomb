@@ -1,0 +1,29 @@
+# Xcode
+*.xcworkspace
+*.xcuserstate
+*.xcscmblueprint
+DerivedData/
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Swift Package Manager
+/.build/
+/Packages/
+/Package.resolved
+
+# Carthage
+Carthage/
+
+# Firebase
+GoogleService-Info.plist
+
+# SwiftLint и логи
+.swiftlint.yml
+*.log

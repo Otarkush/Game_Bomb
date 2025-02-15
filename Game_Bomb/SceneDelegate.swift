@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let contentDataManager = ContentDataManager(model: modelArray)
         let mainVC = MainVC(contentDataManager: contentDataManager)
         
+        
         let navigationController: UINavigationController
         navigationController = UINavigationController(rootViewController: mainVC)
         window?.rootViewController = navigationController
