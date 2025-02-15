@@ -8,6 +8,7 @@
 import UIKit
 
 final class CollectionCategoryCell: UICollectionViewCell {
+    //MARK: - Private property
     private var viewBg = UIView()
     private var imageView = UIImageView()
     private var iconView = UIImageView()
@@ -16,6 +17,7 @@ final class CollectionCategoryCell: UICollectionViewCell {
     
     var action: ((UICollectionViewCell) -> ())?
     
+    //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -103,7 +105,7 @@ private extension CollectionCategoryCell {
             viewBg.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             iconView.topAnchor.constraint(equalTo: viewBg.topAnchor, constant: 8),
-            iconView.trailingAnchor.constraint(equalTo: viewBg.trailingAnchor, constant: -8),
+            iconView.leadingAnchor.constraint(equalTo: viewBg.leadingAnchor, constant: 8),
             
             label.bottomAnchor.constraint(equalTo: viewBg.bottomAnchor, constant: -12),
             label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),

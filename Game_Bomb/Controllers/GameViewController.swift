@@ -18,8 +18,7 @@ enum GameState {
 
 class GameViewController: UIViewController {
     
-    private let contentManager: IContentDataManager!
-
+    //MARK: - Private Property
     private var textLabel = UILabel()
     private var startGameButton = UIButton()
     private var pauseButton = UIButton()
@@ -27,7 +26,8 @@ class GameViewController: UIViewController {
     private var animationDotLottieView: DotLottieAnimationView!
     private var dotLottieView: DotLottieView!
     private var backgroundImageView = UIImageView()
-    private var questions: [Questions] = []
+    private var gameStarted = false
+    private var models: [Model]
     private let navigationBar = CustomNavigationBar()
     private var musicPlayer: AVAudioPlayer?
     private var tickPlayer: AVAudioPlayer?
@@ -37,9 +37,8 @@ class GameViewController: UIViewController {
     private var state: GameState = .notStarted
     
     //MARK: - Init
-    
-    required init(manager: IContentDataManager) {
-        self.contentManager = manager
+    required init(models: [Model]) {
+        self.models = models
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -53,7 +52,17 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupNavigationBar()
-        questions = contentManager.getModelData().flatMap { $0.questions }
+        
+        //mock
+//        questions = [Questions(question: "Какой газ необходим для дыхания человеку?"),
+//                     Questions(question: "Сколько планет в Солнечной системе?"),
+//                     Questions(question: "Как называется столица Австралии?")]
+        
+//        questions = contentManager.getSelectedCategory().flatMap { $0.questions }
+        
+       
+        print("GameViewController loaded with \(models.count) models")
+        
     }
     
     override func viewIsAppearing(_ animated: Bool) {
@@ -195,6 +204,12 @@ class GameViewController: UIViewController {
     }
 
     func showQuestion() {
+        for model in models {
+            let questions = model.questions
+            for question in questions {
+                textLabel.text = question.question
+            }
+        }
         textLabel.font = UIFont(name: "SFProRounded-Black", size: 28)
         let question = questions[Int.random(in: 0..<questions.count)]
         textLabel.text = question.question
@@ -231,7 +246,22 @@ class GameViewController: UIViewController {
             textLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 23),
             textLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
             textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            textLabel.topAnchor.constraint(equalTo: navigationBar.titleOfLabel.bottomAnchor, constant: 23)
+            textLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 140)
+        ])
+        
+        // setup Animation
+        animationView = makeAnimationView()
+        self.view.addSubview(animationView)
+        
+        // setup Start button
+        startGameButton = makeStartButton()
+        view.addSubview(startGameButton)
+        
+        NSLayoutConstraint.activate([
+            startGameButton.widthAnchor.constraint(equalToConstant: 330),
+            startGameButton.heightAnchor.constraint(equalToConstant: 55),
+            startGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            startGameButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -28)
         ])
     }
     

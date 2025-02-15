@@ -18,7 +18,6 @@ final class ContentManager: IContentManager {
             Model(
                 type: "О разном",
                 image: "Image1",
-                isMark: false,
                 questions: [
                     Questions(question: "Какой газ необходим для дыхания человеку?"),
                     Questions(question: "Сколько планет в Солнечной системе?"),
@@ -39,7 +38,6 @@ final class ContentManager: IContentManager {
             Model(
                 type: "Спорт",
                 image: "Image2",
-                isMark: false,
                 questions: [
                     Questions(question: "Какой вид спорта называют “игрой миллионов”?"),
                     Questions(question: "Сколько игроков в одной команде в классическом волейболе?"),
@@ -60,7 +58,6 @@ final class ContentManager: IContentManager {
             Model(
                 type: "Искусство",
                 image: "Image3",
-                isMark: false,
                 questions: [
                     Questions(question: "Какой художник создал картину “Мона Лиза”?"),
                     Questions(question: "Как называется стиль живописи, в котором художники передают мгновенные впечатления от света и цвета?"),
@@ -81,7 +78,6 @@ final class ContentManager: IContentManager {
             Model(
                 type: "Про жизнь",
                 image: "Image4",
-                isMark: false,
                 questions: [
                     Questions(question: "Что является главной потребностью человека после воздуха и воды?"),
                     Questions(question: "Какой орган в теле человека отвечает за перекачивание крови?"),
@@ -102,7 +98,6 @@ final class ContentManager: IContentManager {
             Model(
                 type: "Знаменитости",
                 image: "Image5",
-                isMark: false,
                 questions: [
                     Questions(question: "Как зовут актера, сыгравшего Железного человека в киновселенной Marvel?"),
                     Questions(question: "Какое настоящее имя у рэпера Эминема?"),
@@ -123,7 +118,6 @@ final class ContentManager: IContentManager {
             Model(
                 type: "Природа",
                 image: "Image6",
-                isMark: false,
                 questions: [
                     Questions(question: "Какое самое большое животное на Земле?"),
                     Questions(question: "Какой газ растения выделяют в процессе фотосинтеза?"),
