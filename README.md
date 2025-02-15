@@ -26,8 +26,8 @@ https://github.com/Otarkush/Game_Bomb ![][ios] ![][swift] ![][uikit]
 <p align="left"> 
 <a href="https://github.com/Otarkush">
 <img src="https://img.shields.io/badge/Otarkush (TeamLeader)-blue"/></a>
-<a href="https://github.com/Julia Knyazeva">
-<img src="https://img.shields.io/badge/Julia Knyazeva-red"/></a>
+<a href="https://github.com/Julia4723">
+<img src="https://img.shields.io/badge/Julia4723-red"/></a>
 <a href="https://github.com/volchanka">
 <img src="https://img.shields.io/badge/volchanka-green"/></a>
 <a href="https://github.com/Phan56">
