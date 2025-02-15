@@ -29,6 +29,7 @@ class GameViewController: UIViewController {
     private var gameStarted = false
     private var models: [Model]
     private let navigationBar = CustomNavigationBar()
+    private let contentDataManager: IContentDataManager!
     private var musicPlayer: AVAudioPlayer?
     private var tickPlayer: AVAudioPlayer?
     private var timer: Timer?
@@ -36,9 +37,11 @@ class GameViewController: UIViewController {
     private var remainingTime: TimeInterval = 20.0
     private var state: GameState = .notStarted
     
+    
     //MARK: - Init
-    required init(models: [Model]) {
+    required init(models: [Model], contentDataManager: IContentDataManager) {
         self.models = models
+        self.contentDataManager = contentDataManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,26 +50,11 @@ class GameViewController: UIViewController {
     }
     
     //MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupNavigationBar()
         
-        //mock
-//        questions = [Questions(question: "Какой газ необходим для дыхания человеку?"),
-//                     Questions(question: "Сколько планет в Солнечной системе?"),
-//                     Questions(question: "Как называется столица Австралии?")]
-        
-//        questions = contentManager.getSelectedCategory().flatMap { $0.questions }
-        
-       
-        print("GameViewController loaded with \(models.count) models")
-        
-    }
-    
-    override func viewIsAppearing(_ animated: Bool) {
-        super.viewIsAppearing(animated)
         if state == .notStarted {
             textLabel.font = UIFont(name: "SFProRounded-Medium", size: 28)
             textLabel.text = "Нажмите “Запустить”\nчтобы начать игру"
@@ -75,19 +63,11 @@ class GameViewController: UIViewController {
             animationDotLottieView = makeAnimationView()
             view.addSubview(animationDotLottieView)
             
-            // setup Start button
-            startGameButton = makeStartButton()
-            view.addSubview(startGameButton)
-            
-            NSLayoutConstraint.activate([
-                startGameButton.widthAnchor.constraint(equalToConstant: 330),
-                startGameButton.heightAnchor.constraint(equalToConstant: 55),
-                startGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-                startGameButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -28)
-            ])
-            
             startGameButton.addTarget(self, action: #selector(startGame), for: .touchUpInside)
         }
+       
+        print("загружено \(models.count) моделей")
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -161,7 +141,8 @@ class GameViewController: UIViewController {
         musicPlayer?.stop()
         tickPlayer?.stop()
         timer?.invalidate()
-        dismiss(animated: true)
+        let vc = MainVC(contentDataManager: contentDataManager )
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func startMusic() {
@@ -199,20 +180,16 @@ class GameViewController: UIViewController {
     
     private func showNextScreen() {
         let nextVC = FinishGameVC()
-        nextVC.modalPresentationStyle = .fullScreen
-        present(nextVC, animated: true)
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 
     func showQuestion() {
         for model in models {
             let questions = model.questions
-            for question in questions {
-                textLabel.text = question.question
-            }
+            let randomQuestions = questions[Int.random(in: 0..<questions.count)]
+            textLabel.text = randomQuestions.question
         }
         textLabel.font = UIFont(name: "SFProRounded-Black", size: 28)
-        let question = questions[Int.random(in: 0..<questions.count)]
-        textLabel.text = question.question
     }
     
     //MARK: Setup UI
@@ -249,9 +226,6 @@ class GameViewController: UIViewController {
             textLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 140)
         ])
         
-        // setup Animation
-        animationView = makeAnimationView()
-        self.view.addSubview(animationView)
         
         // setup Start button
         startGameButton = makeStartButton()
@@ -267,8 +241,6 @@ class GameViewController: UIViewController {
     
     func setupNavigationBar() {
         navigationBar.titleOfLabel.text = "Игра"
-        navigationBar.titleOfLabel.textColor = UIColor(red: 0.118, green: 0.118, blue: 0.118, alpha: 1)
-        navigationBar.titleOfLabel.font = UIFont(name: "SFProRounded-Black", size: 30)
         navigationBar.iconRight.setImage(UIImage(resource:.vector1), for: .normal)
         navigationBar.iconRight.addTarget(self, action: #selector(pauseGame), for: .touchUpInside)
         navigationBar.iconLeft.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)

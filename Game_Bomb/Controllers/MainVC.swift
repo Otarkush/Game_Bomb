@@ -206,7 +206,7 @@ class MainVC: UIViewController {
         print("StartGame button tapped")
         
         let selectedModels = contentDataManager.getSelectedModels()
-        let vc = GameViewController(models: selectedModels)
+        let vc = GameViewController(models: selectedModels, contentDataManager: contentDataManager)
         navigationController?.pushViewController(vc, animated: true)
 
     }
@@ -224,17 +224,21 @@ class MainVC: UIViewController {
             let helpVC = HelpVC()
             
             // Устанавливаем preferredContentSize
-            helpVC.preferredContentSize = CGSize(width: view.frame.width, height: 650)
+            helpVC.preferredContentSize = CGSize(width: view.frame.width, height: 600)
             
             // Настраиваем модальный стиль
             if let sheet = helpVC.sheetPresentationController {
                 // Указываем поддерживаемые детенты
                 let customDetent = UISheetPresentationController.Detent.custom(identifier: .medium) { context in
-                    return min(650, context.maximumDetentValue)
+                    return min(600, context.maximumDetentValue)
                 }
                 sheet.detents = [customDetent]
                 
                 // Разрешаем интерактивное изменение размера
+                sheet.largestUndimmedDetentIdentifier = .medium
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+                sheet.prefersEdgeAttachedInCompactHeight = true
+                sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
                 sheet.prefersGrabberVisible = true
             }
             
