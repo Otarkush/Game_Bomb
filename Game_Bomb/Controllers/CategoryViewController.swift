@@ -114,7 +114,7 @@ private extension CategoryViewController {
         
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.5),
-            heightDimension: .absolute(200)
+            heightDimension: .absolute(165)
         )
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -123,7 +123,7 @@ private extension CategoryViewController {
         //Создаем группу
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(220)
+            heightDimension: .absolute(185)
         )
         
         let group = NSCollectionLayoutGroup.horizontal(
@@ -131,21 +131,15 @@ private extension CategoryViewController {
             subitems: [item]
         )
         
-        group.interItemSpacing = .fixed(30)
+        group.interItemSpacing = .fixed(24)
         
         let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: ElementKind.background)
-        sectionBackgroundDecoration.contentInsets = NSDirectionalEdgeInsets(
-            top: 5,
-            leading: 5,
-            bottom: 5,
-            trailing: 5
-        )
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(
-            top: 10,
+            top: 0,
             leading: 24,
-            bottom: 10,
+            bottom: 0,
             trailing: 24
         )
         section.decorationItems = [sectionBackgroundDecoration]

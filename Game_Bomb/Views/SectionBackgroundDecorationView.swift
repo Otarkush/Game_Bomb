@@ -24,7 +24,7 @@ private extension SectionBackgroundDecorationView {
     func configure() {
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(resource: .bgCategory)
-        backgroundImage.contentMode = .scaleAspectFit
+        backgroundImage.contentMode = .scaleToFill
         addSubview(backgroundImage)
         sendSubviewToBack(backgroundImage)
     }
