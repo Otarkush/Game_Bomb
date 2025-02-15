@@ -27,7 +27,7 @@ class FinishGameVC: UIViewController {
         let labelTop = UILabel()
         labelTop.text = "Конец игры"
         labelTop.textColor = .black
-        labelTop.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+        labelTop.font = UIFont(name: "SFProRounded-Black", size: 30)
         labelTop.textAlignment = .center
         labelTop.numberOfLines = 0
         labelTop.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +36,7 @@ class FinishGameVC: UIViewController {
         let labelBot = UILabel()
         labelBot.text = "В следующем раунде после каждого ответа хлопать в ладоши"
         labelBot.textColor = .black
-        labelBot.font = UIFont.systemFont(ofSize: 28, weight: .medium)
+        labelBot.font = UIFont(name: "SFProRounded-Semibold", size: 28)
         labelBot.textAlignment = .center
         labelBot.numberOfLines = 0
         labelBot.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +46,7 @@ class FinishGameVC: UIViewController {
         firstButton.setTitle("Другое задание", for: .normal)
         firstButton.setTitleColor(.black, for: .normal)
         firstButton.layer.cornerRadius = 10
-        firstButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        firstButton.titleLabel?.font =  UIFont(name: "SFProDisplay-Bold", size: 20)
         
         firstButton.backgroundColor = UIColor(red: 1.0, green: 210/255, blue: 94/255, alpha: 1.0)
         firstButton.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class FinishGameVC: UIViewController {
         secondButton.setTitle("Начать заново", for: .normal)
         secondButton.setTitleColor(.black, for: .normal)
         secondButton.layer.cornerRadius = 10
-        secondButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        secondButton.titleLabel?.font =  UIFont(name: "SFProDisplay-Bold", size: 20)
         
         secondButton.backgroundColor = UIColor(red: 1.0, green: 210/255, blue: 94/255, alpha: 1.0)
         secondButton.translatesAutoresizingMaskIntoConstraints = false
