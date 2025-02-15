@@ -54,6 +54,10 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupNavigationBar()
+    }
+    
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
         
         if state == .notStarted {
             textLabel.font = UIFont(name: "SFProRounded-Medium", size: 28)
@@ -141,7 +145,7 @@ class GameViewController: UIViewController {
         musicPlayer?.stop()
         tickPlayer?.stop()
         timer?.invalidate()
-        let vc = MainVC(contentDataManager: contentDataManager )
+        let vc = MainVC(contentDataManager: contentDataManager)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -179,7 +183,7 @@ class GameViewController: UIViewController {
     }
     
     private func showNextScreen() {
-        let nextVC = FinishGameVC()
+        let nextVC = FinishGameVC(contentDataManager: contentDataManager)
         navigationController?.pushViewController(nextVC, animated: true)
     }
 
