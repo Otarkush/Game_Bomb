@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomNavigationBar: UIViewController {
+final class CustomNavigationBar: UIViewController {
 
     let navigationBar = UINavigationBar()
     
@@ -16,7 +16,7 @@ class CustomNavigationBar: UIViewController {
         label.text = "Screen Name"
         label.textColor = .black
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 30, weight: .black)
         return label
     }()
     
@@ -33,17 +33,6 @@ class CustomNavigationBar: UIViewController {
         button.addTarget(self, action: #selector(backButton), for: .touchUpInside)
         button.frame.size = CGSize(width: 24, height: 24)
         return button
-    }()
-    
-    lazy var subTitleLabel = {
-        let label = UILabel()
-        label.text = ""
-        label.textColor = .black
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.numberOfLines = 0
-        
-        return label
     }()
     
     

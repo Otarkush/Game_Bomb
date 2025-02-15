@@ -9,6 +9,19 @@ import UIKit
 
 class MainVC: UIViewController {
     
+    private let contentDataManager: IContentDataManager
+    
+    //MARK: - Init
+    init(contentDataManager: IContentDataManager) {
+        self.contentDataManager = contentDataManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     let nameLabelFist: UILabel = {
         let label = UILabel()
         label.text = "Игра для компании"
@@ -183,20 +196,17 @@ class MainVC: UIViewController {
     
     @objc func tappedStartGame() {
         print("StartGame button tapped")
-        let modelArray = ContentManager.fetchDataModel()
-        let itemModel = ContentDataManager(model: modelArray)
         
-        let vc = GameViewController(manager: itemModel)
+        let selectedModels = contentDataManager.getSelectedModels()
+        let vc = GameViewController(models: selectedModels)
         navigationController?.pushViewController(vc, animated: true)
 
     }
     
     @objc func tappedCategory() {
         print("Category button tapped")
-        let modelArray = ContentManager.fetchDataModel()
-        let itemModel = ContentDataManager(model: modelArray)
         
-        let vc = CategoryViewController(contentDataManager: itemModel)
+        let vc = CategoryViewController(contentDataManager: contentDataManager)
         navigationController?.pushViewController(vc, animated: true)
 
     }
