@@ -15,26 +15,26 @@ final class CategoryRulesViewController: UIViewController {
     private let descriptionLabel = UILabel()
     private let categoryView1 = CategoryView(
         label: "О разном",
-        image: UIImageView(image: UIImage(resource: .image1)),
+        image: UIImageView(image: UIImage(resource: .categoryDifferent)),
         iconView: UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
     )
     
     private let categoryView2 = CategoryView(
         label: "Спорт",
-        image: UIImageView(image: UIImage(resource: .image1)),
+        image: UIImageView(image: UIImage(resource: .categorySport)),
         iconView: UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
         
     )
     
     private let categoryView3 = CategoryView(
         label: "Про жизнь",
-        image: UIImageView(image: UIImage(resource: .image3)),
+        image: UIImageView(image: UIImage(resource: .categoryLife)),
         iconView: UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
     )
     
     private let categoryView4 = CategoryView(
         label: "Знаменитости",
-        image: UIImageView(image: UIImage(resource: .image4)),
+        image: UIImageView(image: UIImage(resource: .categoryFamous)),
         iconView: UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
     )
     
@@ -74,7 +74,7 @@ private extension CategoryRulesViewController {
 private extension CategoryRulesViewController {
     func setupTitleLabel() {
         titleLabel.text = "Правила игры"
-        titleLabel.font = .systemFont(ofSize: 30, weight: .black)
+        titleLabel.font = UIFont(name: "SFProRounded-Black", size: 30)
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
         titleLabel.textColor = .black
@@ -82,7 +82,7 @@ private extension CategoryRulesViewController {
     
     func setupSubTile() {
         subTitle.text = "В игре доступно 6 категорий и более 90 вопросов."
-        subTitle.font = .systemFont(ofSize: 24, weight: .heavy)
+        subTitle.font = UIFont(name: "SFProRounded-Heavy", size: 24)
         subTitle.numberOfLines = 0
         subTitle.textAlignment = .center
         subTitle.textColor = .black
@@ -90,7 +90,7 @@ private extension CategoryRulesViewController {
     
     func setupDescription() {
         descriptionLabel.text = "Можно выбрать сразу несколько категорий для игры."
-        descriptionLabel.font = .systemFont(ofSize: 24, weight: .light)
+        descriptionLabel.font = UIFont(name: "SFProRounded-Light", size: 24)
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center
         descriptionLabel.textColor = .black

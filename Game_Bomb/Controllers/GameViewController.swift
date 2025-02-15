@@ -26,9 +26,8 @@ class GameViewController: UIViewController {
     private var animationDotLottieView: DotLottieAnimationView!
     private var dotLottieView: DotLottieView!
     private var backgroundImageView = UIImageView()
-    private var models: [Model]
+    private var questions: [Questions] = []
     private let navigationBar = CustomNavigationBar()
-   // private let contentDataManager: IContentDataManager!
     private var musicPlayer: AVAudioPlayer?
     private var tickPlayer: AVAudioPlayer?
     private var timer: Timer?
@@ -39,7 +38,7 @@ class GameViewController: UIViewController {
     
     //MARK: - Init
     required init(models: [Model]) {
-        self.models = models
+        self.questions = models.flatMap(\.questions)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -51,7 +50,6 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupNavigationBar()
     }
     
     override func viewIsAppearing(_ animated: Bool) {
@@ -60,18 +58,23 @@ class GameViewController: UIViewController {
             textLabel.font = UIFont(name: "SFProRounded-Medium", size: 28)
             textLabel.text = "Нажмите “Запустить”\nчтобы начать игру"
            
+            // setup Start button
+            startGameButton = makeStartButton()
+            view.addSubview(startGameButton)
+            
+            NSLayoutConstraint.activate([
+                startGameButton.widthAnchor.constraint(equalToConstant: 330),
+                startGameButton.heightAnchor.constraint(equalToConstant: 55),
+                startGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+                startGameButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -28)
+            ])
+            startGameButton.addTarget(self, action: #selector(startGame), for: .touchUpInside)
+
             // setup Animation
             animationDotLottieView = makeAnimationView()
             view.addSubview(animationDotLottieView)
-            startGameButton.addTarget(self, action: #selector(startGame), for: .touchUpInside)
         }
-       
-        print("загружено \(models.count) моделей")
         
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        print("didDisapear")
     }
     
     //MARK: - Func
@@ -127,7 +130,6 @@ class GameViewController: UIViewController {
     
     @objc func completeAnimation() {
         let _ = animationDotLottieView.dotLottieViewModel.stop()
-        print("Animation completed!")
         self.showNextScreen()
         let url = Bundle.main.url(forResource: "igra-zakonchena-fonovyim-zvukom", withExtension: "wav")
         self.musicPlayer = try? AVAudioPlayer(contentsOf: url!)
@@ -141,6 +143,7 @@ class GameViewController: UIViewController {
         musicPlayer?.stop()
         tickPlayer?.stop()
         timer?.invalidate()
+        
     }
     
     func startMusic() {
@@ -182,11 +185,7 @@ class GameViewController: UIViewController {
     }
 
     func showQuestion() {
-        for model in models {
-            let questions = model.questions
-            let randomQuestions = questions[Int.random(in: 0..<questions.count)]
-            textLabel.text = randomQuestions.question
-        }
+        textLabel.text = questions[Int.random(in: 0..<questions.count)].question
         textLabel.font = UIFont(name: "SFProRounded-Black", size: 28)
     }
     
@@ -196,6 +195,9 @@ class GameViewController: UIViewController {
         // setup Background
         backgroundImageView = makeBackgroundView()
         view.addSubview(backgroundImageView)
+      
+        // setup NabigationBar
+        setupNavigationBar()
         view.addSubview(navigationBar.view)
         navigationBar.view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -222,18 +224,6 @@ class GameViewController: UIViewController {
             textLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
             textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
             textLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 140)
-        ])
-        
-        
-        // setup Start button
-        startGameButton = makeStartButton()
-        view.addSubview(startGameButton)
-        
-        NSLayoutConstraint.activate([
-            startGameButton.widthAnchor.constraint(equalToConstant: 330),
-            startGameButton.heightAnchor.constraint(equalToConstant: 55),
-            startGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            startGameButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -28)
         ])
     }
     
@@ -276,8 +266,6 @@ class GameViewController: UIViewController {
         startButton.layer.shadowColor = UIColor.black.cgColor
         startButton.layer.shadowOpacity = 0.4
         startButton.layer.shadowRadius = 4
-        
-        //startButton.layer.opacity = 1
         startButton.layer.cornerRadius = 10
         startButton.translatesAutoresizingMaskIntoConstraints = false
         return startButton
