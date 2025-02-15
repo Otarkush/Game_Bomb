@@ -23,6 +23,7 @@ final class CategoryRulesViewController: UIViewController {
         label: "Спорт",
         image: UIImageView(image: UIImage(resource: .image1)),
         iconView: UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
+        
     )
     
     private let categoryView3 = CategoryView(

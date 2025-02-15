@@ -8,18 +8,6 @@
 import UIKit
 
 final class FinishGameVC: UIViewController {
-    private let contentDataManager: IContentDataManager!
-    
-    //MARK: - Init
-    init(contentDataManager: IContentDataManager) {
-        self.contentDataManager = contentDataManager
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     private let navigationBar = CustomNavigationBar()
     private let labelBot = UILabel()
@@ -68,9 +56,15 @@ final class FinishGameVC: UIViewController {
         
         let firstButton = UIButton(type: .system)
         firstButton.setTitle("Другое задание", for: .normal)
+        firstButton.titleLabel?.font = UIFont(name: "SFProDisplay-Bold", size: 20)
         firstButton.setTitleColor(.black, for: .normal)
         firstButton.layer.cornerRadius = 10
         firstButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        
+        firstButton.layer.shadowOffset = CGSize(width: 3, height: 3)
+        firstButton.layer.shadowColor = UIColor.black.cgColor
+        firstButton.layer.shadowOpacity = 0.4
+        firstButton.layer.shadowRadius = 4
         
         firstButton.backgroundColor = UIColor(red: 1.0, green: 210/255, blue: 94/255, alpha: 1.0)
         firstButton.translatesAutoresizingMaskIntoConstraints = false
@@ -79,9 +73,15 @@ final class FinishGameVC: UIViewController {
         
         let secondButton = UIButton(type: .system)
         secondButton.setTitle("Начать заново", for: .normal)
+        secondButton.titleLabel?.font = UIFont(name: "SFProDisplay-Bold", size: 20)
         secondButton.setTitleColor(.black, for: .normal)
         secondButton.layer.cornerRadius = 10
         secondButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        
+        secondButton.layer.shadowOffset = CGSize(width: 3, height: 3)
+        secondButton.layer.shadowColor = UIColor.black.cgColor
+        secondButton.layer.shadowOpacity = 0.4
+        secondButton.layer.shadowRadius = 4
         
         secondButton.backgroundColor = UIColor(red: 1.0, green: 210/255, blue: 94/255, alpha: 1.0)
         secondButton.translatesAutoresizingMaskIntoConstraints = false
@@ -141,9 +141,7 @@ final class FinishGameVC: UIViewController {
     
     @objc func newGame() {
         print("Button Next Game")
-        let models = contentDataManager.getSelectedModels()
-        let gameVC = GameViewController(models: models, contentDataManager: contentDataManager)
-        navigationController?.pushViewController(gameVC, animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
 }

@@ -49,7 +49,7 @@ class MainVC: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Старт игры", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "SFProDisplay-Bold", size: 18)
+        button.titleLabel?.font = UIFont(name: "SFProDisplay-Bold", size: 20)
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
 //        button.backgroundColor = .gray
@@ -66,7 +66,7 @@ class MainVC: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Категории", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "SFProDisplay-Bold", size: 18)
+        button.titleLabel?.font = UIFont(name: "SFProDisplay-Bold", size: 20)
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
 //        button.backgroundColor = .gray
@@ -206,7 +206,7 @@ class MainVC: UIViewController {
         print("StartGame button tapped")
         
         let selectedModels = contentDataManager.getSelectedModels()
-        let vc = GameViewController(models: selectedModels, contentDataManager: contentDataManager)
+        let vc = GameViewController(models: selectedModels)
         navigationController?.pushViewController(vc, animated: true)
 
     }
@@ -245,6 +245,5 @@ class MainVC: UIViewController {
             // Показываем bottom sheet
             present(helpVC, animated: true, completion: nil)
         }
-
 
 }
