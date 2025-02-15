@@ -36,24 +36,23 @@ import UIKit
 import Lottie
 import AVFoundation
 
-class GameViewController: UIViewController {
+final class GameViewController: UIViewController {
     
-    private let contentManager: IContentDataManager!
-
+    //MARK: - Private Property
     private var textLabel = UILabel()
     private var startGameButton = UIButton()
     private var animationView = LottieAnimationView()
     private var backgroundImageView = UIImageView()
     private var gameStarted = false
-    private var models: [Model] = []
+    private var models: [Model]
     private let navigationBar = CustomNavigationBar()
     private var musicPlayer: AVAudioPlayer!
     private var tickPlayer: AVAudioPlayer!
     
     
     //MARK: - Init
-    required init(manager: IContentDataManager) {
-        self.contentManager = manager
+    required init(models: [Model]) {
+        self.models = models
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -61,13 +60,14 @@ class GameViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         startGameButton.addTarget(self, action: #selector(startGame), for: .touchUpInside)
         view.backgroundColor = .white
         setupNavigationBar()
-       
+        
         //mock
 //        questions = [Questions(question: "Какой газ необходим для дыхания человеку?"),
 //                     Questions(question: "Сколько планет в Солнечной системе?"),
@@ -76,7 +76,7 @@ class GameViewController: UIViewController {
 //        questions = contentManager.getSelectedCategory().flatMap { $0.questions }
         
        
-        print(models.count)
+        print("GameViewController loaded with \(models.count) models")
         
     }
     
@@ -147,8 +147,6 @@ class GameViewController: UIViewController {
     }
 
     func showQuestion() {
-        let models = contentManager.getSelectedQuestion()
-        //let model = models[Int.random(in: 0..<models.count)]
         for model in models {
             let questions = model.questions
             for question in questions {
@@ -191,7 +189,7 @@ class GameViewController: UIViewController {
             textLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 23),
             textLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
             textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            textLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 113)
+            textLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 140)
         ])
         
         // setup Animation

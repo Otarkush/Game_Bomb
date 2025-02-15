@@ -88,7 +88,7 @@ private extension CategoryViewController {
     
     func setupNavigationBar() {
         navigationBar.titleOfLabel.text = "Категории"
-        navigationBar.iconRight.setImage(UIImage(resource:.setting), for: .normal)
+        navigationBar.iconRight.setImage(UIImage(resource:.vector2), for: .normal)
         navigationBar.iconRight.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         addChild(navigationBar)
         navigationBar.didMove(toParent: self)
@@ -186,13 +186,6 @@ extension CategoryViewController: UICollectionViewDataSource {
         
         let content = contentDataManager.getModelData()[indexPath.row]
         
-//        cell.action = { myCell in
-//            if let index = collectionView.indexPath(for: myCell) {
-//                let item = self.contentDataManager.getModelData()[index.row]
-//                self.contentDataManager.toggleSelected(item)
-//            }
-//        }
-        
         cell.configure(model: content)
         
         return cell
@@ -206,10 +199,8 @@ extension CategoryViewController: UICollectionViewDelegate {
         
         let item = self.contentDataManager.getModelData()[indexPath.row]
         self.contentDataManager.toggleSelected(item)
-        
         cell.cellTapped()
-       // collectionView.reloadItems(at: [indexPath])
-        
+     
        
         // let questionVC = CategoryRulesViewController()//тут экран с вопросом заменить
         //

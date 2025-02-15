@@ -108,7 +108,7 @@ private extension CategoryRulesViewController {
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             
-            subTitle.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            subTitle.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             subTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             subTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             
@@ -116,17 +116,17 @@ private extension CategoryRulesViewController {
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             
-            categoryView1.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 30),
-            categoryView1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            categoryView1.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 32),
+            categoryView1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             
             categoryView2.topAnchor.constraint(equalTo: categoryView1.topAnchor),
-            categoryView2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            categoryView2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             
-            categoryView3.topAnchor.constraint(equalTo: categoryView1.bottomAnchor, constant: 24),
-            categoryView3.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            categoryView3.topAnchor.constraint(equalTo: categoryView1.bottomAnchor, constant: 32),
+            categoryView3.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             
             categoryView4.topAnchor.constraint(equalTo: categoryView3.topAnchor),
-            categoryView4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            categoryView4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             
             
         ])

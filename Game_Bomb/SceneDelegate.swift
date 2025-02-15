@@ -15,16 +15,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-       
         let modelArray = ContentManager.fetchDataModel()
-        let itemModel = ContentDataManager(model: modelArray)
+        let contentDataManager = ContentDataManager(model: modelArray)
+        let mainVC = MainVC(contentDataManager: contentDataManager)
+        
         let navigationController: UINavigationController
-        navigationController = UINavigationController(rootViewController: MainVC())
-
-       // let vc = GameViewController(manager: itemModel)
-        let vc = navigationController
-       // let vc = UINavigationController(rootViewController: CategoryViewController(contentDataManager: itemModel))
-        window?.rootViewController = vc
+        navigationController = UINavigationController(rootViewController: mainVC)
+        window?.rootViewController = navigationController
         navigationController.navigationBar.isHidden = true
         window?.makeKeyAndVisible()
     }
