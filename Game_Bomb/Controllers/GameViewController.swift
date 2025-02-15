@@ -77,6 +77,12 @@ class GameViewController: UIViewController {
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        if isMovingFromParent {
+            backToMainVC()
+        }
+    }
+    
     //MARK: - Func
 
     @objc func startGame() {
@@ -139,11 +145,15 @@ class GameViewController: UIViewController {
         self.animationDotLottieView.removeFromSuperview()
     }
     
-    @objc func backToMainVC() {
+    @objc func backButtonTapped() {
+        backToMainVC()
+        print("Back button tapped")
+    }
+    
+    func backToMainVC() {
         musicPlayer?.stop()
         tickPlayer?.stop()
         timer?.invalidate()
-        
     }
     
     func startMusic() {
@@ -231,7 +241,7 @@ class GameViewController: UIViewController {
         navigationBar.titleOfLabel.text = "Игра"
         navigationBar.iconRight.setImage(UIImage(resource:.vector1), for: .normal)
         navigationBar.iconRight.addTarget(self, action: #selector(pauseGame), for: .touchUpInside)
-        navigationBar.iconLeft.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
+        navigationBar.iconLeft.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         addChild(navigationBar)
         navigationBar.didMove(toParent: self)
     }
