@@ -36,7 +36,6 @@ final class FinishGameVC: UIViewController {
         navigationBar.titleOfLabel.text = "Конец игры"
         navigationBar.iconRight.isHidden = true
         navigationBar.iconLeft.isHidden = true
-//        navigationBar.iconRight.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         addChild(navigationBar)
         view.addSubview(navigationBar.view)
         navigationBar.didMove(toParent: self)
@@ -59,7 +58,6 @@ final class FinishGameVC: UIViewController {
         firstButton.titleLabel?.font = UIFont(name: "SFProDisplay-Bold", size: 20)
         firstButton.setTitleColor(.black, for: .normal)
         firstButton.layer.cornerRadius = 10
-        firstButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         
         firstButton.layer.shadowOffset = CGSize(width: 3, height: 3)
         firstButton.layer.shadowColor = UIColor.black.cgColor
@@ -76,7 +74,6 @@ final class FinishGameVC: UIViewController {
         secondButton.titleLabel?.font = UIFont(name: "SFProDisplay-Bold", size: 20)
         secondButton.setTitleColor(.black, for: .normal)
         secondButton.layer.cornerRadius = 10
-        secondButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         
         secondButton.layer.shadowOffset = CGSize(width: 3, height: 3)
         secondButton.layer.shadowColor = UIColor.black.cgColor

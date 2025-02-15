@@ -53,7 +53,8 @@ private extension CategoryViewController {
             forDecorationViewOfKind: ElementKind.background
         )
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
+        collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
         collectionView.register(
             CollectionCategoryCell.self,
             forCellWithReuseIdentifier: reuseIdentifier
@@ -88,7 +89,7 @@ private extension CategoryViewController {
     
     func setupNavigationBar() {
         navigationBar.titleOfLabel.text = "Категории"
-        navigationBar.iconRight.setImage(UIImage(resource:.vector2), for: .normal)
+        navigationBar.iconRight.setImage(UIImage(resource:.yellowQuestionMark), for: .normal)
         navigationBar.iconRight.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         addChild(navigationBar)
         navigationBar.didMove(toParent: self)
@@ -133,8 +134,6 @@ private extension CategoryViewController {
         
         group.interItemSpacing = .fixed(24)
         
-        let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: ElementKind.background)
-        
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(
             top: 0,
@@ -142,7 +141,6 @@ private extension CategoryViewController {
             bottom: 0,
             trailing: 24
         )
-        section.decorationItems = [sectionBackgroundDecoration]
         
         return UICollectionViewCompositionalLayout(section: section)
     }

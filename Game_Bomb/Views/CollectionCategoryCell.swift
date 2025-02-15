@@ -38,7 +38,7 @@ final class CollectionCategoryCell: UICollectionViewCell {
     }
     
     func configure(model: Model) {
-        imageView.image = UIImage(named: model.image)
+        imageView.image = UIImage(resource: model.image)
         label.text = model.type
         isChecked = model.isMark
         updateBackgroundColor()
@@ -90,7 +90,7 @@ private extension CollectionCategoryCell {
     }
     
     func setupLabel() {
-        label.font = UIFont(name: "SFProRounded-Medium", size: 14)
+        label.font = UIFont(name: "SFProRounded-Black", size: 16)
         label.textColor = .black
     }
 }

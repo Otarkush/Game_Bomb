@@ -10,6 +10,8 @@
 		<string>SF-Pro-Rounded-Medium.otf</string>
 		<string>SF-Pro-Rounded-Regular.otf</string>
 		<string>DelaGothicOne-Regular.ttf</string>
+		<string>SF-Pro-Rounded-Light.otf</string>
+		<string>SF-Pro-Rounded-Heavy.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
