@@ -10,11 +10,26 @@ import UIKit
 final class FinishGameVC: UIViewController {
     
     private let navigationBar = CustomNavigationBar()
+    private let labelBot = UILabel()
+    
+    private let looserTasks = [
+        "В следующем раунде перед каждым ответом делать одно приседание",
+        "В следующем раунде перед каждым ответом подпрыгнуть и коснуться ладонями колен",
+        "В следующем раунде перед каждым ответом сделать поворот вокруг себя",
+        "В следующем раунде перед каждым ответом дотронуться до пола руками и резко выпрямиться",
+        "В следующем раунде перед каждым ответом сделать руками большой круг, как будто рисуете радугу",
+        "В следующем раунде во время каждого ответа подпрыгнуть три раза на одной ноге"
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(red: 245/255, green: 244/255, blue: 238/255, alpha: 1.0)
+        
+        let background = UIImageView(image: UIImage(named: "bg"))
+        background.contentMode = .scaleAspectFill
+        background.frame = view.bounds
+        view.addSubview(background)
         
         navigationBar.titleOfLabel.text = "Конец игры"
         navigationBar.iconRight.isHidden = true
@@ -23,11 +38,7 @@ final class FinishGameVC: UIViewController {
         addChild(navigationBar)
         view.addSubview(navigationBar.view)
         navigationBar.didMove(toParent: self)
-        
-        let background = UIImageView(image: UIImage(named: "bg"))
-        background.contentMode = .scaleAspectFill
-        background.frame = view.bounds
-        view.addSubview(background)
+     
         
         let imageBomb = UIImageView(image: UIImage(named: "image 9"))
         imageBomb.contentMode = .scaleAspectFit
@@ -43,7 +54,6 @@ final class FinishGameVC: UIViewController {
 //        labelTop.translatesAutoresizingMaskIntoConstraints = false
 //        view.addSubview(labelTop)
         
-        let labelBot = UILabel()
         labelBot.text = "В следующем раунде после каждого ответа хлопать в ладоши"
         labelBot.textColor = .black
         labelBot.font = UIFont.systemFont(ofSize: 28, weight: .medium)
@@ -95,7 +105,7 @@ final class FinishGameVC: UIViewController {
         NSLayoutConstraint.activate([
             imageBomb.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 69),
             imageBomb.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -57),
-            imageBomb.topAnchor.constraint(equalTo: navigationBar.view.bottomAnchor, constant: 100),
+            imageBomb.topAnchor.constraint(equalTo: navigationBar.view.bottomAnchor, constant: 65),
             imageBomb.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -362),
             
 //            labelTop.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 95),
@@ -105,19 +115,19 @@ final class FinishGameVC: UIViewController {
             
             labelBot.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22),
             labelBot.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            labelBot.topAnchor.constraint(equalTo: view.topAnchor, constant: 489),
-            labelBot.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -219),
+            labelBot.topAnchor.constraint(equalTo: view.topAnchor, constant: 512),
+            labelBot.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -190),
             
             buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            buttonsStackView.topAnchor.constraint(equalTo: labelBot.bottomAnchor, constant: 43)
+            buttonsStackView.topAnchor.constraint(equalTo: labelBot.bottomAnchor, constant: 20)
         ])
     }
     
    
     @objc func nextTask() {
-        print("Первая кнопка нажата!")
+        labelBot.text = looserTasks[Int.random(in: 0..<looserTasks.count)]
     }
     
     @objc func newGame() {
